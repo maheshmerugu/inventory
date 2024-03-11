@@ -107,6 +107,7 @@ class VendorMasterController extends Controller
             [
                 'vendor_id' => 'required|unique:vendor_masters|max:255',
                 'vendor_name' => 'required|string|max:255',
+                'vendor_email'=>'required',
                 'status' => 'required',
 
 

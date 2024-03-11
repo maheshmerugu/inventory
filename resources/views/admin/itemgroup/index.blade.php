@@ -14,7 +14,6 @@
 
 
 
-<div class="main-panel">
     <div class="page-header">
         <h4 class="py-3"> Item Group Master List </h4>
     </div>
@@ -142,10 +141,7 @@
 
     </div>
 
-    <!-- content-wrapper ends -->
-    <!-- partial:partials/_footer.html -->
-    <!-- partial -->
-</div>
+   
 
 
 <!-- HTML for delete confirmation modal -->

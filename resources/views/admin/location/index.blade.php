@@ -15,7 +15,7 @@
 
 
     <div class="page-header">
-        <h4 class="py-3"> VENDOR MASTER LIST </h4>
+        <h4 class="py-3"> LOCATION MASTER LIST </h4>
     </div>
     <div class="content-wrapper">
         <div class="col-12 grid-margin stretch-card">
@@ -80,12 +80,11 @@
                                 <tr class="badge-secondary">
                                     <th><input type="checkbox" id="checkall"></th>
                                     <th>S.No</th>
-                                    <th>Vendor Id</th>
-                                    <th>Vendor Name</th>
-                                    <th>Vendor Email</th>
-                                    <th>Vendor Phone</th>
-                                    <th>Vendor Address</th>
-                                    <th>Display Status	</th>
+                                    <th>Location Code</th>
+                                    <th>Location Name</th>
+                                    <th>Location Short Name</th>
+                                    <th>District</th>
+                                    <th>Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -96,24 +95,20 @@
                                         <input type="checkbox" class="CheckBoxClass" name="multiple[]" value="1">
                                     </td>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{$item->vendor_id}}</td>
-                                    <td>{{$item->vendor_name}}</td>
-                                    <td>{{$item->vendor_email}}</td>
-                                    <td>{{$item->vendor_phone}}</td>
-                                    <td>{{$item->vendor_address}}</td>
+                                    <td>{{$item->location_code}}</td>
+                                    <td>{{$item->location_name}}</td>
+                                    <td>{{$item->location_short_name}}</td>
+                                    <td>{{$item->district}}</td>
+                                    <td>{{$item->address}}</td>
+
 
                                    
-                                   
-                                    <td>
-                                        <label class="badge badge-successs">
-                                            <?php echo $item->status == 1 ? 'Active' : 'Not Active'; ?>
-                                        </label>
-                                    </td>
+                                  
                                     <td>
 
 
                                         <label class="badge badge-info me-3">
-                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('vendor.master.list.edit', $item->id) }}">update</a></i>
+                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('location.master.list.edit', $item->id) }}">update</a></i>
                                         </label>
                                         <label class="badge badge-danger">
                                             <!-- <i id="deleteButton" class="mdi mdi-delete me-1"></i> Delete -->
@@ -193,7 +188,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('vendor.master.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
+                url: "{{ route('location.master.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
                 type: "POST",
                 data: {
                     _method: 'POST', // Specify the method as DELETE
@@ -209,7 +204,7 @@
                         });
                         // Redirect to a specific URL after a successful delete
                         setTimeout(function() {
-                            window.location.href = "{{ route('vendor.masters.list') }}";
+                            window.location.href = "{{ route('location.master.list') }}";
                         }, 2000); // 2000 milliseconds = 2 seconds
                     } else {
                         iziToast.error({

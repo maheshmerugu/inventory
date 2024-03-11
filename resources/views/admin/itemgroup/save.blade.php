@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="main-panel">
-    <div class="page-header">
+   <div class="page-header">
         <h4 class=""> Master </h4> <a href="{{('item-groups-masters-list')}}" class=" "> <label class="badge badge-info"><i class="mdi mdi-apps"></i> Manage</label></a>
     </div>
     <div class="content-wrapper">
@@ -87,10 +86,7 @@
 
     </div>
 
-    <!-- content-wrapper ends -->
-    <!-- partial:partials/_footer.html -->
-    <!-- partial -->
-</div>
+    
 
 <script>
     function validateGroupCode() {

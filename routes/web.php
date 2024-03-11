@@ -17,6 +17,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemGroupController;
 use App\Http\Controllers\VendorMasterController;
 
+use App\Http\Controllers\LocationMasterController;
+
+
 
 
 
@@ -45,5 +48,14 @@ Route::post('/vendor-master-store', [VendorMasterController::class, 'store'])->n
 Route::any('/vendor-master-list', [VendorMasterController::class, 'index'])->name('vendor.masters.list');
 Route::any('/vendor-master-list/edit/{id}', [VendorMasterController::class ,'edit'])->name('vendor.master.list.edit');
 Route::post('/vendor-master-list/update/{id}', [VendorMasterController::class ,'update'])->name('vendor.master.update');
-
 Route::post('/vendor-master-list/delete/{id?}', [VendorMasterController::class ,'delete'])->name('vendor.master.delete');
+
+
+//location master-routes
+
+Route::get('/location-master', [LocationMasterController::class, 'create'])->name('location.master');
+Route::post('/location-master-store', [LocationMasterController::class, 'store'])->name('location.master.store');
+Route::any('/location-master-list', [LocationMasterController::class, 'index'])->name('location.master.list');
+Route::any('/location-master-list/edit/{id}', [LocationMasterController::class ,'edit'])->name('location.master.list.edit');
+Route::post('/location-master-list/update/{id}', [LocationMasterController::class ,'update'])->name('location.master.update');
+Route::post('/location-master-list/delete/{id?}', [LocationMasterController::class ,'delete'])->name('location.master.delete');
