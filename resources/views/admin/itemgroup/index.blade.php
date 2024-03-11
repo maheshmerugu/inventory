@@ -43,9 +43,9 @@
                                 <div class="col-sm-3 mb-1 mt-1">
                                     <div class="form-group">
                                         <select class="form-control form-select" name="status" id="status">
-                                            <option value="0">- Select Status -</option>
+                                            <option value="">- Select Status -</option>
                                             <option value="1">Active</option>
-                                            <option value="2">In Active</option>
+                                            <option value="0">In Active</option>
                                         </select>
                                     </div>
 

@@ -18,16 +18,16 @@ class ItemGroupController extends Controller
 
         // Initialize the query builder
         $query = ItemGroup::query();
-
-        // If search query is provided, add search condition to the query
-        if ($searchQuery) {
+        // If search query is provided or not empty, add search condition to the query
+        if ($searchQuery !== null && $searchQuery !== '') {
             $query->where('group_code', 'like', '%' . $searchQuery . '%');
         }
 
-        // If status query is provided, add status condition to the query
-        if ($statusQuery) {
-            $query->where('status', $statusQuery);
+        // If status query is provided or not empty, add status condition to the query
+        if ($statusQuery !== null && $statusQuery !== '') {
+            $query->where('status', 'like', '%' . $statusQuery . '%');
         }
+
 
         // Retrieve paginated items based on the constructed query
         $items = $query->paginate(10);
