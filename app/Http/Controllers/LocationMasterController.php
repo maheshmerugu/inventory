@@ -20,7 +20,7 @@ class LocationMasterController extends Controller
         $query = LocationMaster::query();
         // If search query is provided or not empty, add search condition to the query
         if ($searchQuery !== null && $searchQuery !== '') {
-            $query->where('vendor_id', 'like', '%' . $searchQuery . '%');
+            $query->where('location_code', 'like', '%' . $searchQuery . '%');
         }
 
         // If status query is provided or not empty, add status condition to the query
