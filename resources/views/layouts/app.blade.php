@@ -134,7 +134,7 @@
           <li class="nav-item"> <a class="nav-link" href="item-master.php">Item Master</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{route('vendor.master')}}">Vendor Master</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{route('location.master')}}">Location Master</a></li>
-          <li class="nav-item"> <a class="nav-link" href="employee-master.php">Employee Master</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{route('employee.master')}}">Employee Master</a></li>
           <li class="nav-item"> <a class="nav-link" href="amc-master.php">Po/ Amc master</a></li>
           <li class="nav-item"> <a class="nav-link" href="section.php">Section</a></li>
           <li class="nav-item"> <a class="nav-link" href="district.php">District</a></li>

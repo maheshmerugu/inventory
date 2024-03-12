@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeMasterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,3 +60,11 @@ Route::any('/location-master-list', [LocationMasterController::class, 'index'])-
 Route::any('/location-master-list/edit/{id}', [LocationMasterController::class ,'edit'])->name('location.master.list.edit');
 Route::post('/location-master-list/update/{id}', [LocationMasterController::class ,'update'])->name('location.master.update');
 Route::post('/location-master-list/delete/{id?}', [LocationMasterController::class ,'delete'])->name('location.master.delete');
+
+//employee master
+Route::get('/employee-master', [EmployeeMasterController::class, 'create'])->name('employee.master');
+Route::post('/employee-master-store', [EmployeeMasterController::class, 'store'])->name('employee.master.store');
+Route::any('/employee-master-list', [EmployeeMasterController::class, 'index'])->name('employee.master.list');
+Route::any('/employee-master-list/edit/{id}', [EmployeeMasterController::class ,'edit'])->name('employee.master.edit');
+Route::post('/employee-master-list/update/{id}', [EmployeeMasterController::class ,'update'])->name('employee.master.update');
+Route::post('/employee-master-list/delete/{id?}', [EmployeeMasterController::class ,'delete'])->name('employee.master.delete');
