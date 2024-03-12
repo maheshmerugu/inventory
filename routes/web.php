@@ -17,8 +17,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemGroupController;
 use App\Http\Controllers\VendorMasterController;
-
 use App\Http\Controllers\LocationMasterController;
+use App\Http\Controllers\UserMasterController;
+use App\Http\Controllers\DistrictMasterController;
+
+
+
+
+
+
+
 
 
 
@@ -68,3 +76,24 @@ Route::any('/employee-master-list', [EmployeeMasterController::class, 'index'])-
 Route::any('/employee-master-list/edit/{id}', [EmployeeMasterController::class ,'edit'])->name('employee.master.edit');
 Route::post('/employee-master-list/update/{id}', [EmployeeMasterController::class ,'update'])->name('employee.master.update');
 Route::post('/employee-master-list/delete/{id?}', [EmployeeMasterController::class ,'delete'])->name('employee.master.delete');
+
+
+
+//user management routes
+Route::get('/users-master', [UserMasterController::class, 'create'])->name('users.master');
+Route::post('/users-master-store', [UserMasterController::class, 'store'])->name('users.master.store');
+Route::any('/users-master-list', [UserMasterController::class, 'index'])->name('users.master.list');
+Route::any('/users-master-list/edit/{id}', [UserMasterController::class ,'edit'])->name('users.master.edit');
+Route::post('/users-master-list/update/{id}', [UserMasterController::class ,'update'])->name('users.master.update');
+Route::post('/users-master-list/delete/{id?}', [UserMasterController::class ,'delete'])->name('users.master.delete');
+
+
+
+///district routes
+Route::get('/district-master', [DistrictMasterController::class, 'create'])->name('district.master');
+Route::post('/district-master-store', [DistrictMasterController::class, 'store'])->name('district.master.store');
+Route::any('/district-master-list', [DistrictMasterController::class, 'index'])->name('district.master.list');
+Route::any('/district-master-list/edit/{id}', [DistrictMasterController::class ,'edit'])->name('district.master.edit');
+Route::post('/district-master-list/update/{id}', [DistrictMasterController::class ,'update'])->name('district.master.update');
+Route::post('/district-master-list/delete/{id?}', [DistrictMasterController::class ,'delete'])->name('district.master.delete');
+

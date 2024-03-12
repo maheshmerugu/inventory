@@ -127,7 +127,7 @@
       </a>
       <div class="collapse" id="ui-basics" style="">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="add.php">Create Users</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{route('users.master')}}">Create Users</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{route('item-groups')}}">Item Group</a></li>
 
           
@@ -137,7 +137,7 @@
           <li class="nav-item"> <a class="nav-link" href="{{route('employee.master')}}">Employee Master</a></li>
           <li class="nav-item"> <a class="nav-link" href="amc-master.php">Po/ Amc master</a></li>
           <li class="nav-item"> <a class="nav-link" href="section.php">Section</a></li>
-          <li class="nav-item"> <a class="nav-link" href="district.php">District</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{route('district.master')}}">District</a></li>
 
         </ul>
       </div>
