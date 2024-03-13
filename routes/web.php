@@ -24,6 +24,11 @@ use App\Http\Controllers\DistrictMasterController;
 use App\Http\Controllers\CourtMasterController;
 
 
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+
+
 
 
 
@@ -36,7 +41,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Auth::routes();
+Auth::routes();
 
 
 
@@ -107,3 +112,13 @@ Route::any('/courts-master-list', [CourtMasterController::class, 'index'])->name
 Route::any('/courts-master-list/edit/{id}', [CourtMasterController::class ,'edit'])->name('courts.master.edit');
 Route::post('/courts-master-list/update/{id}', [CourtMasterController::class ,'update'])->name('courts.master.update');
 Route::post('/courts-master-list/delete/{id?}', [CourtMasterController::class ,'delete'])->name('courts.master.delete');
+
+
+Route::resources([
+    'roles' => RoleController::class,
+    'users' => UserController::class,
+    'products' => ProductController::class,
+]);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
