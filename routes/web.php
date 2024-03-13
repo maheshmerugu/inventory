@@ -21,7 +21,7 @@ use App\Http\Controllers\LocationMasterController;
 use App\Http\Controllers\UserMasterController;
 use App\Http\Controllers\DistrictMasterController;
 
-
+use App\Http\Controllers\CourtMasterController;
 
 
 
@@ -97,3 +97,13 @@ Route::any('/district-master-list/edit/{id}', [DistrictMasterController::class ,
 Route::post('/district-master-list/update/{id}', [DistrictMasterController::class ,'update'])->name('district.master.update');
 Route::post('/district-master-list/delete/{id?}', [DistrictMasterController::class ,'delete'])->name('district.master.delete');
 
+
+
+//section routes
+
+Route::get('/courts-master', [CourtMasterController::class, 'create'])->name('courts.master');
+Route::post('/courts-master-store', [CourtMasterController::class, 'store'])->name('courts.master.store');
+Route::any('/courts-master-list', [CourtMasterController::class, 'index'])->name('courts.master.list');
+Route::any('/courts-master-list/edit/{id}', [CourtMasterController::class ,'edit'])->name('courts.master.edit');
+Route::post('/courts-master-list/update/{id}', [CourtMasterController::class ,'update'])->name('courts.master.update');
+Route::post('/courts-master-list/delete/{id?}', [CourtMasterController::class ,'delete'])->name('courts.master.delete');
