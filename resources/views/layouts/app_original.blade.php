@@ -15,6 +15,7 @@
   <link rel="stylesheet"   href="{{asset('public/assets/vendors/css/vendor.bundle.base.css')}}">
 
 
+  <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
 
 
   <!-- endinject -->

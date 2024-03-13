@@ -107,7 +107,7 @@
 
 
                                         <label class="badge badge-info me-3">
-                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('courts.master.edit', $item->id) }}">update</a></i>
+                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('courts.master.edit', $item->id) }}">Update</a></i>
                                         </label>
                                         <label class="badge badge-danger">
                                             <!-- <i id="deleteButton" class="mdi mdi-delete me-1"></i> Delete -->

@@ -22,7 +22,7 @@
 
 
                                 <select class="form-control form-select" name="district_id" id="district_id">
-                                    <option value="">- Select Status -</option>
+                                    <option value="">- Select District -</option>
                                     @foreach($all_districts as $status)
                                     <option value="{{ $status->id }}">{{ $status->name }}</option>
                                     @endforeach
@@ -41,8 +41,8 @@
                                     <td>
                                         <select class="form-control form-select" name="court[0][status]">
                                             <option value="">- Select Status -</option>
+                                            <option value="1" selected>Active</option>
                                             <option value="0">In Active</option>
-                                            <option value="1">Active</option>
                                         </select>
                                     </td>
                                     <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>
@@ -78,7 +78,7 @@
                         <td><select class="form-control form-select status" name="court[' + i + '][status]" id="status_' + i + '">\
                             <option value="">- Select Status -</option>\
                             <option value="0">In Active</option>\
-                            <option value="1">Active</option>\
+                            <option value="1" selected >Active</option>\
                         </select></td>\
                         <td><button type="button" class="btn btn-danger remove-tr">Remove</button></td>\
                     </tr>');
