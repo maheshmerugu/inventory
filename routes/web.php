@@ -38,14 +38,19 @@ use App\Http\Controllers\ProductController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Auth::routes();
 
 
 
-//item-group routes
+
+//section routes
+
+Route::middleware('auth')->group(function () {
+
+
+    //item-group routes
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::any('/item-groups', [ItemGroupController::class, 'save'])->name('item-groups');
 Route::any('/item-groups-masters-list', [ItemGroupController::class, 'index'])->name('item-groups-masters-list');
@@ -102,11 +107,7 @@ Route::any('/district-master-list/edit/{id}', [DistrictMasterController::class ,
 Route::post('/district-master-list/update/{id}', [DistrictMasterController::class ,'update'])->name('district.master.update');
 Route::post('/district-master-list/delete/{id?}', [DistrictMasterController::class ,'delete'])->name('district.master.delete');
 
-
-
-//section routes
-
-Route::get('/courts-master', [CourtMasterController::class, 'create'])->name('courts.master');
+//court master routes 
 Route::post('/courts-master-store', [CourtMasterController::class, 'store'])->name('courts.master.store');
 Route::any('/courts-master-list', [CourtMasterController::class, 'index'])->name('courts.master.list');
 Route::any('/courts-master-list/edit/{id}', [CourtMasterController::class ,'edit'])->name('courts.master.edit');
@@ -114,11 +115,21 @@ Route::post('/courts-master-list/update/{id}', [CourtMasterController::class ,'u
 Route::post('/courts-master-list/delete/{id?}', [CourtMasterController::class ,'delete'])->name('courts.master.delete');
 
 
+//change password route
+
+Route::get('/change-password', [UserController::class, 'changePassword'])->name('user.password.change');
+
+Route::post('/change-password-save', [UserController::class, 'changePasswordSave'])->name('user.password.save');
+
+
 Route::resources([
-    'roles' => RoleController::class,
-    'users' => UserController::class,
-    'products' => ProductController::class,
-]);
+        'roles' => RoleController::class,
+        'users' => UserController::class,
+        'products' => ProductController::class,
+    ]);
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

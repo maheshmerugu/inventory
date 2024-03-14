@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-lg-2"><button id="searchBtn" type="submit" class="btn btn-success btn-fw"> <i class="mdi mdi-magnify"></i> Search</button></div>
                                 <div class="col-sm-4  text-end mt-2">
-                                    <a href="{{route('courts.master')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
+                                    <a href="{{route('courts.master.list')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
                                     <label class="badge badge-info "><i class="mdi  mdi-check-circle-outline me-1"></i>Active</label>
                                     <label class="badge badge-warning"><i class="mdi mdi-close-circle-outline me-1"></i>In Active</label>
                                     <a href=""> <label class="badge badge-danger"><i class="mdi   mdi-delete me-1"></i> Delete</label></a>
