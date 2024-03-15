@@ -21,12 +21,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="message">Message:</label>
-                                    <textarea id="message" name="message" rows="4" style="height: 200px;" class="form-control" required></textarea>
+                                    <textarea id="message" name="message" rows="3"  class="form-control" required></textarea>
                                 </div>
                                 <div class="co-lg-12 text-center mt-4">
                                 <button type="button" id="company_form_btn" class="btn btn-info "><i class="mdi mdi-arrow-right-bold-hexagon-outline "></i>
                                     SUBMIT</button>
-                                <button type="button" class="btn btn-gradient-success btn-fw ">
+                                <button type="button" class="btn btn-gradient-success btn-fw">
                                     <i class="mdi mdi-arrow-left-bold-circle"></i> BACK</button>
 
                             </div>
