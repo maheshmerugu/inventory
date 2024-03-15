@@ -127,8 +127,10 @@
                         <div class="collapse" id="ui-basics" style="">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="{{route('users.master')}}">Create Users</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{route('item-groups')}}">Item Group</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="item-master.php">Item Master</a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href="{{route('itemgroup.index')}}">Item Group</a></li>
+
                                 <li class="nav-item"> <a class="nav-link" href="{{route('vendor.master')}}">Vendor Master</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('location.master')}}">Location Master</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('employee.master')}}">Employee Master</a></li>
@@ -140,6 +142,36 @@
                             </ul>
                         </div>
                     </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-toggle="collapse" href="#ui-basics" aria-expanded="false" aria-controls="ui-basics">
+                            <span class="menu-title"> <i class="mdi mdi-database f2"></i> &nbsp; Purchase History</span>
+                            <i class="mdi mdi-database menu-icon f1"></i> <i class="menu-arrow"></i>
+                        </a>
+
+                        <div class="collapse" id="ui-basics" style="">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('users.master')}}">Item Entry</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="item-master.php">Manage Items</a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href="{{route('itemgroup.index')}}">Dispatch</a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href="{{route('vendor.master')}}">Return </a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('location.master')}}">Inventory Request</a></li>
+                               
+
+                            </ul>
+                        </div>
+                        
+
+                    </li>
+
+
+
+                    
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="store-receipt.php">
                             <span class="menu-title"> <i class="mdi mdi-receipt  menu-icon f2"></i> &nbsp; Store Receipt</span>
@@ -147,6 +179,7 @@
                             <i class="mdi mdi-receipt  menu-icon f1"></i>
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="issue-form.php">
                             <span class="menu-title"> <i class="mdi mdi-file-document-box menu-icon f2"></i> &nbsp; Issue Form</span>
@@ -154,6 +187,7 @@
                             <i class="mdi mdi-file-document-box menu-icon f1"></i>
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="return-form.php">
                             <span class="menu-title"> <i class="mdi mdi-file-multiple  menu-icon f2"></i> &nbsp; Return Form</span>
@@ -182,6 +216,18 @@
                             <i class="mdi mdi-receipt menu-icon f1"></i>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+
+                    @canany(['create-role', 'edit-role', 'delete-role'])
+                            <a class="nav-link" href="{{ route('roles.index') }}">
+                            <span class="menu-title"> <i class="mdi mdi-receipt  menu-icon f2"></i> &nbsp; Manage Roles</span>
+                            <i class="mdi mdi-receipt menu-icon f1"></i>
+                        </a>
+                    @endcanany
+                    </li>
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('user.password.change')}}">
                             <span class="menu-title"> <i class="mdi mdi-lock menu-icon f2"></i> &nbsp; Change Password</span>

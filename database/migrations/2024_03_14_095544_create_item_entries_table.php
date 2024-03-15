@@ -11,9 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('item_entries', function (Blueprint $table) {
             $table->id();
+            $table->string('group_code');
+            $table->string('item_name');
+            $table->string('serial_number');
+            $table->string('amc_warrenty');
+            $table->tinyInteger('status')
+            ->default(0)
+            ->comment('1 - Installed, 0 - Delivered');       
             $table->timestamps();
+
         });
     }
 
@@ -22,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('item_entries');
     }
 };

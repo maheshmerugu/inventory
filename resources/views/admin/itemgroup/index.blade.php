@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -24,7 +25,7 @@
             <div class="card badge-light">
                 <div class="card-body">
 
-                    <form action="{{ route('item-groups-masters-list') }}" method="GET">
+                    <form action="{{ route('itemgroup.index') }}" method="GET">
 
                         <div class=" slider">
                             <div class="row">
@@ -51,7 +52,12 @@
                                 </div>
                                 <div class="col-lg-2"><button id="searchBtn" type="submit" class="btn btn-success btn-fw"> <i class="mdi mdi-magnify"></i> Search</button></div>
                                 <div class="col-sm-4  text-end mt-2">
-                                    <a href="{{route('item-groups')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
+
+                                    @can('create-item-group')
+                                    <a href="{{route('itemgroup.create')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
+                                      @endcan
+
+
                                     <label class="badge badge-info "><i class="mdi  mdi-check-circle-outline me-1"></i>Active</label>
                                     <label class="badge badge-warning"><i class="mdi mdi-close-circle-outline me-1"></i>In Active</label>
                                     <a href=""> <label class="badge badge-danger"><i class="mdi   mdi-delete me-1"></i> Delete</label></a>
@@ -105,15 +111,21 @@
                                     <td>
 
 
-                                        <label class="badge badge-info me-3">
-                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('item-groups-masters.edit', $item->id) }}">Update</a></i>
-                                        </label>
+                                    @can('edit-item-group')
+                                    <label class="badge badge-info me-3">
+                                    <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('itemgroup.edit', $item->id) }}">Update</a></i>
+                                    </label>
+                                    @endcan
+
+
+                                    @can('delete-item-group')
+
                                         <label class="badge badge-danger">
                                             <!-- <i id="deleteButton" class="mdi mdi-delete me-1"></i> Delete -->
-
                                             <i type="button" class="mdi mdi-delete me-1 deleteButton" data-id="{{ $item->id }}">Delete</i>
-
                                         </label>
+                                        @endcan
+
                                     </td>
                                 </tr>
                                 @endforeach
@@ -186,7 +198,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('item-groups-masters.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
+                url: "{{ route('itemgroup.destroy', $item->id) }}", // Adjust the route with item ID parameter
                 type: "POST",
                 data: {
                     _method: 'POST', // Specify the method as DELETE
@@ -202,7 +214,7 @@
                         });
                         // Redirect to a specific URL after a successful delete
                         setTimeout(function() {
-                            window.location.href = "{{ route('item-groups-masters-list') }}";
+                            window.location.href = "{{ route('itemgroup.index') }}";
                         }, 2000); // 2000 milliseconds = 2 seconds
                     } else {
                         iziToast.error({

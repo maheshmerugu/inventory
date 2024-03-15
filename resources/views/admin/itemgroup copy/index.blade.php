@@ -15,8 +15,7 @@
 
 
     <div class="page-header">
-        <h4 class="py-3"> COURTS LIST
- </h4>
+        <h4 class="py-3"> Item Group Master List </h4>
     </div>
     <div class="content-wrapper">
         <div class="col-12 grid-margin stretch-card">
@@ -25,9 +24,9 @@
             <div class="card badge-light">
                 <div class="card-body">
 
-                    <form action="{{ route('courts.master.list') }}" method="GET">
+                    <form action="{{ route('item-groups-masters-list') }}" method="GET">
 
-                        <div class="slider">
+                        <div class=" slider">
                             <div class="row">
                                 <div class="col-sm-3 mb-1 mt-1">
                                     <div class="form-group">
@@ -52,7 +51,11 @@
                                 </div>
                                 <div class="col-lg-2"><button id="searchBtn" type="submit" class="btn btn-success btn-fw"> <i class="mdi mdi-magnify"></i> Search</button></div>
                                 <div class="col-sm-4  text-end mt-2">
-                                    <a href="{{route('courts.master.create')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
+
+                                    @can('create-item-group')
+                                    <a href="{{route('item-groups')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
+        @endcan
+
                                     <label class="badge badge-info "><i class="mdi  mdi-check-circle-outline me-1"></i>Active</label>
                                     <label class="badge badge-warning"><i class="mdi mdi-close-circle-outline me-1"></i>In Active</label>
                                     <a href=""> <label class="badge badge-danger"><i class="mdi   mdi-delete me-1"></i> Delete</label></a>
@@ -71,33 +74,33 @@
             </div>
             <div></div>
         </div>
-       
-
         <div class="row">
-                        <div class="col-lg-12 grid-margin stretch-card mt-3">
-                            <div class="table-responsive">
-                                <div class="table-wrapper">
-                                    <table class="table table-striped ">
-                                        <thead class="table-dark">
-                                            <tr class="badge-secondary">
-                                                <th><input type="checkbox" id="checkall"></th>
-                                                <th>S.no</th>
-                                                <th>District</th>
-                                                <th>Court Name</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+            <div class="col-lg-12 grid-margin stretch-card mt-3">
+
+                <div class="table-responsive">
+                    <div class="table-wrapper">
+                        <table class="table table-striped ">
+                            <thead class="table-dark">
+                                <tr class="badge-secondary">
+                                    <th><input type="checkbox" id="checkall"></th>
+                                    <th>S.No</th>
+                                    <th>Group Code</th>
+                                    <th>Group Name</th>
+                                    <th>Group Short Name</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 @foreach($items as $key => $item)
                                 <tr>
                                     <td>
                                         <input type="checkbox" class="CheckBoxClass" name="multiple[]" value="1">
                                     </td>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{$item->district->name ?? ''}}</td>
-                                    <td>{{$item->name}}</td>
-                                    
+                                    <td>{{$item->group_code}}</td>
+                                    <td>{{$item->group_name}}</td>
+                                    <td>{{$item->group_short_name}}</td>
                                     <td>
                                         <label class="badge badge-successs">
                                             <?php echo $item->status == 1 ? 'Active' : 'Not Active'; ?>
@@ -107,7 +110,7 @@
 
 
                                         <label class="badge badge-info me-3">
-                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('courts.master.edit', $item->id) }}">Update</a></i>
+                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('item-groups-masters.edit', $item->id) }}">Update</a></i>
                                         </label>
                                         <label class="badge badge-danger">
                                             <!-- <i id="deleteButton" class="mdi mdi-delete me-1"></i> Delete -->
@@ -123,19 +126,22 @@
                             </tbody>
 
 
-                                    </table>
-                                    {{ $items->links() }}
 
-                                </div>
-
-
-                            </div>
-
-                        </div>
-
-
+                        </table>
+                        {{ $items->links() }}
 
                     </div>
+
+                    
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
 
     </div>
 
@@ -184,7 +190,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('courts.master.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
+                url: "{{ route('item-groups-masters.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
                 type: "POST",
                 data: {
                     _method: 'POST', // Specify the method as DELETE
@@ -200,7 +206,7 @@
                         });
                         // Redirect to a specific URL after a successful delete
                         setTimeout(function() {
-                            window.location.href = "{{ route('courts.master.list') }}";
+                            window.location.href = "{{ route('item-groups-masters-list') }}";
                         }, 2000); // 2000 milliseconds = 2 seconds
                     } else {
                         iziToast.error({

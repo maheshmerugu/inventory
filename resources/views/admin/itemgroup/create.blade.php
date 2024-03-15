@@ -1,12 +1,8 @@
-<div>
-    <!-- He who is contented is rich. - Laozi -->
-</div>
 @extends('layouts.app')
 
 @section('content')
-<div class="main-panel">
-    <div class="page-header">
-        <h4 class=""> Master </h4> <a href="{{('itemgroup.index')}}" class=" "> <label class="badge badge-info"><i class="mdi mdi-apps"></i> Manage</label></a>
+   <div class="page-header">
+        <h4 class=""> Master </h4> <a href="{{('item-groups-masters-list')}}" class=" "> <label class="badge badge-info"><i class="mdi mdi-apps"></i> Manage</label></a>
     </div>
     <div class="content-wrapper">
         <div class="col-12 grid-margin stretch-card">
@@ -28,7 +24,7 @@
                                     <div class="form-group">
                                         <label>Group Code <span class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <input type="text" name="group_code" id="group_code" class="form-control" value="{{$item->group_code}}" placeholder="Group Code" required oninput="validateGroupCode()">
+                                            <input type="text" name="group_code" id="group_code" class="form-control" placeholder="Group Code" required oninput="validateGroupCode()">
                                         </div>
                                         <span id="groupCodeError" class="text-danger" style="display: none;">Group Code must contain only numbers and letters</span>
 
@@ -39,7 +35,7 @@
                                     <div class="form-group">
                                         <label>Group Name </label>
                                         <div class="input-group">
-                                            <input type="text" name="group_name" id="group_name" value="{{$item->group_name}}" class="form-control" placeholder=" Group Name" oninput="validateGroupName()">
+                                            <input type="text" name="group_name" id="group_name" class="form-control" placeholder=" Group Name" oninput="validateGroupName()">
 
                                         </div>
                                         <span id="groupNameError" class="text-danger" style="display: none;">Group Code must contain only letters</span>
@@ -51,7 +47,7 @@
                                     <div class="form-group">
                                         <label>Group Short Name </label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="group_short_name" value="{{$item->group_short_name}}" id="group_short_name" placeholder="Group Short Name" required minlength="2" oninput="validateShortName()">
+                                            <input type="text" class="form-control" name="group_short_name" id="group_short_name" placeholder="Group Short Name" required minlength="2" oninput="validateShortName()">
 
                                         </div>
                                         <span id="groupShortNameError" class="text-danger" style="display: none;">Group Code must contain only letters</span>
@@ -60,25 +56,24 @@
                                 </div>
                                 <div class="col-sm-4 mb-1 mt-1">
                                     <div class="form-group">
-                                        <label for="status">Status</label>
+                                        <label>Status </label>
                                         <select class="form-control form-select" name="status" id="status">
-                                            <option value="0" {{$item->status == 0 ? 'selected' : ''}}>- Active -</option>
-                                            <option value="1" {{$item->status == 1 ? 'selected' : ''}}>Active</option>
-                                            <option value="2" {{$item->status == 2 ? 'selected' : ''}}>Inactive</option>
+                                            <option value="0">- Active -</option>
+                                            <option value="1">Active</option>
+                                            <option value="2">In Active</option>
                                         </select>
                                     </div>
-
 
                                 </div>
 
                                 <div class="co-lg-12 text-center mt-4">
-                                    <button type="submit" id="company_form_btn" class="btn btn-info "><i class="mdi mdi-arrow-right-bold-hexagon-outline "></i>
-                                        UPDATE</button>
+                                    <button type="submit" id="company_form_btn" class="btn btn-info "><i class="mdi mdi-arrow-right-bold-hexagon-outline " ></i>
+                                        SUBMIT</button>
                                     <button type="submit" class="btn btn-gradient-success btn-fw ">
-                                        <a href="{{route('itemgroup.index')}}" class="mdi mdi-arrow-left-bold-circle"></a> BACK</button>
+                                        <i class="mdi mdi-arrow-left-bold-circle"></i> BACK</button>
 
                                 </div>
-
+                                
                             </div>
                         </div>
 
@@ -91,10 +86,7 @@
 
     </div>
 
-    <!-- content-wrapper ends -->
-    <!-- partial:partials/_footer.html -->
-    <!-- partial -->
-</div>
+    
 
 <script>
     function validateGroupCode() {
@@ -141,10 +133,9 @@
         e.preventDefault();
         let form = $('#company_form')[0];
         let data = new FormData(form);
-        let itemId = "{{ $item->id }}"; // Assuming you have the item ID available
 
         $.ajax({
-            url: "{{ route('itemgroup.update', ['id' => $item->id]) }}", // Adjust the route with item ID parameter
+            url: "{{ route('itemgroup.store') }}",
             type: "POST",
             data: data,
             dataType: "JSON",
@@ -169,8 +160,8 @@
                     iziToast.success({
                         message: response.success,
                         position: 'topRight'
+
                     });
-                    // Redirect to a specific URL after a delay of 2 seconds (2000 milliseconds)
                     setTimeout(function() {
                         window.location.href = "{{ route('itemgroup.index') }}";
                     }, 2000); // 2000 milliseconds = 2 seconds
@@ -189,10 +180,6 @@
 
     })
 </script>
-
-
-
-
 
 
 @endsection

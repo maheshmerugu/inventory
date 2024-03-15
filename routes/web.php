@@ -22,8 +22,8 @@ use App\Http\Controllers\UserMasterController;
 use App\Http\Controllers\DistrictMasterController;
 
 use App\Http\Controllers\CourtMasterController;
-
-
+use App\Http\Controllers\InventoryRequestController;
+use App\Http\Controllers\ItemEntryController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
@@ -38,7 +38,7 @@ use App\Http\Controllers\ProductController;
 
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('login');
 });
 
 
@@ -52,13 +52,19 @@ Route::middleware('auth')->group(function () {
 
     //item-group routes
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::any('/item-groups', [ItemGroupController::class, 'save'])->name('item-groups');
-Route::any('/item-groups-masters-list', [ItemGroupController::class, 'index'])->name('item-groups-masters-list');
-Route::post('/item-group-store', [ItemGroupController::class, 'store'])->name('itemgroup.store');
-Route::any('/item-groups-master-list/edit/{id}', [ItemGroupController::class ,'edit'])->name('item-groups-masters.edit');
-Route::post('/item-groups-master-list/update/{id}', [ItemGroupController::class ,'update'])->name('item-groups-masters.update');
-Route::post('/item-groups-master-list/delete/{id?}', [ItemGroupController::class ,'delete'])->name('item-groups-masters.delete');
+Route::any('/itemgroup/create', [ItemGroupController::class, 'create'])->name('itemgroup.create');
+Route::any('/itemgroup', [ItemGroupController::class, 'index'])->name('itemgroup.index');
+Route::post('/itemgroup', [ItemGroupController::class, 'store'])->name('itemgroup.store');
+Route::any('/itemgroup/edit/{id}', [ItemGroupController::class ,'edit'])->name('itemgroup.edit');
+Route::post('/item-groups-master-list/update/{id}', [ItemGroupController::class ,'update'])->name('itemgroup.update');
+Route::post('/item-groups-master-list/delete/{id?}', [ItemGroupController::class ,'delete'])->name('itemgroup.destroy');
 Route::post('/item-group/search',[ItemGroupController::class,'search'])->name('item-groups-masters.search');
+
+
+//item-entry routes
+
+Route::any('/item-entry-create', [ItemEntryController::class, 'create'])->name('items.create');
+Route::get('/item-entry-index', [ItemEntryController::class, 'index'])->name('items.index');
 
 
 //vendor master-routes
@@ -108,6 +114,7 @@ Route::post('/district-master-list/update/{id}', [DistrictMasterController::clas
 Route::post('/district-master-list/delete/{id?}', [DistrictMasterController::class ,'delete'])->name('district.master.delete');
 
 //court master routes 
+Route::get('/courts-master-create', [CourtMasterController::class, 'create'])->name('courts.master.create');
 Route::post('/courts-master-store', [CourtMasterController::class, 'store'])->name('courts.master.store');
 Route::any('/courts-master-list', [CourtMasterController::class, 'index'])->name('courts.master.list');
 Route::any('/courts-master-list/edit/{id}', [CourtMasterController::class ,'edit'])->name('courts.master.edit');
@@ -115,20 +122,29 @@ Route::post('/courts-master-list/update/{id}', [CourtMasterController::class ,'u
 Route::post('/courts-master-list/delete/{id?}', [CourtMasterController::class ,'delete'])->name('courts.master.delete');
 
 
-//change password route
+//change password routes
 
 Route::get('/change-password', [UserController::class, 'changePassword'])->name('user.password.change');
-
 Route::post('/change-password-save', [UserController::class, 'changePasswordSave'])->name('user.password.save');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+//inventory Request Routes 
+Route::get('/inventory-request-create', [InventoryRequestController::class, 'create'])->name('inventory.request.create');
+Route::post('/inventory-request-store', [InventoryRequestController::class, 'store'])->name('inventory.request.store');
+Route::any('/inventory-request-list', [InventoryRequestController::class, 'index'])->name('inventory.request.list');
+Route::any('/inventory-request-list/edit/{id}', [InventoryRequestController::class ,'edit'])->name('inventory.request.edit');
+Route::post('/inventory-request-list/update/{id}', [InventoryRequestController::class ,'update'])->name('inventory.request.update');
+Route::post('/inventory-request-list/delete/{id?}', [InventoryRequestController::class ,'delete'])->name('inventory.request.delete');
+
 
 
 Route::resources([
         'roles' => RoleController::class,
         'users' => UserController::class,
         'products' => ProductController::class,
+        // 'itemgroup'=>ItemGroupController
     ]);
-
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
 Auth::routes();
