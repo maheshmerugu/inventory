@@ -172,4 +172,33 @@ class InventoryRequestController extends Controller
         // Download the PDF file
         return $pdf->download('document.pdf');
     }
+
+    public function  statusChange(Request $request){
+
+       
+
+        try {
+            if(isset($request->id) && ($request->status == "approved")){
+
+                $inventory=InventoryRequest::find($request->id);
+                $inventory->status=1;
+                $inventory->save();
+                return response()->json(['success' => 'Inventory Request Status Updated Successfully!']);
+
+    
+            }else if(isset($request->id) && ($request->status == 'rejected')){
+
+
+                $inventory=InventoryRequest::find($request->id);
+                $inventory->status=0;
+                $inventory->save();
+                return response()->json(['success' => 'Inventory Request Status Updated Successfully!']);
+
+            }
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to add Inventory Request: ' . $e->getMessage()], 500);
+        }
+        
+    }
 }

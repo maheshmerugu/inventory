@@ -16,10 +16,9 @@ return new class extends Migration
             $table->string('subject');
             $table->string('message');
             $table->string('created_by');
-
             $table->tinyInteger('status')
-            ->default(0)
-            ->comment('0 - initiated, 1 - received,2 - rejected');  
+            ->default(null)
+            ->comment('0 - Rejected, 1 - Approved')->nullable();
             $table->timestamps();
         });
     }

@@ -41,20 +41,20 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>PO Number<span class="text-danger">*</span></label>
-                                    <input type="text" name="item[0][amc_warrenty]" placeholder="Enter PO Number" style="width: 120%;margin-left: -7PX;" class="form-control" />
+                                    <input type="text" name="po_number" placeholder="Enter PO Number" style="width: 120%;margin-left: -7PX;" class="form-control" />
                                     <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must contain only letters</span>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label style="margin-left: 24px;">Purchased Date<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" style="width: 81%;margin-left: 23px;" id="datepicker">
+                                    <input type="text" class="form-control" name="purchased_date" style="width: 81%;margin-left: 23px;" id="datepicker">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label style="margin-left: -71px;">Vendor<span class="text-danger">*</span></label>
-                                    <select class="form-control form-select" name="district_id" id="district_id" style="width: 87%;margin-left: -65px;">
+                                    <select class="form-control form-select" name="vendor_id" id="vendor_id" style="width: 87%;margin-left: -65px;">
                                         <option value="">- Select -</option>
                                         @foreach($vendors as $vendor)
                                         <option value="{{ $vendor->vendor_id }}">{{ $vendor->vendor_name }}</option>
@@ -68,8 +68,8 @@
                                     <label style="    margin-left: -116px;">Item Group<span class="text-danger">*</span></label>
                                     <select class="form-control form-select" name="district_id" id="district_id" style="margin-left: -113px;">
                                         <option value="">- Select -</option>
-                                        @foreach($vendors as $vendor)
-                                        <option value="{{ $vendor->vendor_id }}">{{ $vendor->vendor_name }}</option>
+                                        @foreach($item_groups as $group)
+                                        <option value="{{ $group->group_code }}">{{ $group->group_name }}</option>
                                         @endforeach
                                     </select>
                                     <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must contain only letters</span>
@@ -174,7 +174,7 @@
         let data = new FormData(form);
 
         $.ajax({
-            url: "{{ route('courts.master.store') }}",
+            url: "{{ route('items.store') }}",
             type: "POST",
             data: data,
             dataType: "JSON",

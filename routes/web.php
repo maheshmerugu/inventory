@@ -64,6 +64,7 @@ Route::post('/item-group/search',[ItemGroupController::class,'search'])->name('i
 //item-entry routes
 
 Route::any('/item-entry-create', [ItemEntryController::class, 'create'])->name('items.create');
+Route::any('/item-entry-store', [ItemEntryController::class, 'store'])->name('items.store');
 Route::get('/item-entry-index', [ItemEntryController::class, 'index'])->name('items.index');
 
 
@@ -137,7 +138,7 @@ Route::any('/inventory-request-list/edit/{id}', [InventoryRequestController::cla
 Route::post('/inventory-request-list/update/{id}', [InventoryRequestController::class ,'update'])->name('inventory.request.update');
 Route::post('/inventory-request-list/delete/{id?}', [InventoryRequestController::class ,'delete'])->name('inventory.request.delete');
 
-
+Route::post('/inventory-request-list/status/{id?}', [InventoryRequestController::class ,'statusChange'])->name('inventory.request.statuschange');
 Route::any('/inventory-request-download', [InventoryRequestController::class ,'download'])->name('inventory.request.pdf.download');
 
 

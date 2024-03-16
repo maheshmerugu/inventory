@@ -16,7 +16,7 @@ class InventoryRequest extends Model
 
     public function requestedName()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'created_by');
     }
 
 }
