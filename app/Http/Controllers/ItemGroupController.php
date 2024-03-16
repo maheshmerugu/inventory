@@ -2,142 +2,95 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-
 use App\Models\ItemGroup;
+use App\Http\Requests\StoreItemGroupRequest;
+use App\Http\Requests\UpdateItemGroupRequest;
+use Illuminate\View\View;
 
 
 class ItemGroupController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
 
-    public function index(Request $request)
+
+     public function __construct()
     {
-        $searchQuery = $request->input('search');
-        $statusQuery = $request->input('status');
-
-        // Initialize the query builder
-        $query = ItemGroup::query();
-        // If search query is provided or not empty, add search condition to the query
-        if ($searchQuery !== null && $searchQuery !== '') {
-            $query->where('group_code', 'like', '%' . $searchQuery . '%');
-        }
-
-        // If status query is provided or not empty, add status condition to the query
-        if ($statusQuery !== null && $statusQuery !== '') {
-            $query->where('status', 'like', '%' . $statusQuery . '%');
-        }
-
-
-        // Retrieve paginated items based on the constructed query
-        $items = $query->paginate(10);
-
-
-        return view('admin.itemgroup.index', compact('items', 'searchQuery', 'statusQuery'));
+        $this->middleware('auth');
+        $this->middleware('permission:create-item-group|edit-user|delete-user', ['only' => ['index','show']]);
+        $this->middleware('permission:create-user', ['only' => ['create','store']]);
+        $this->middleware('permission:edit-user', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete-user', ['only' => ['destroy']]);
     }
 
 
-
-    public function edit($id)
-
+   public function index(): View
     {
-        $item = ItemGroup::find($id);
-        return view('admin.itemgroup.edit', compact('item'));
-    }
-
-    public function save()
-    {
-        return view('admin.itemgroup.save');
-    }
-
-    public function search(Request $request)
-    {
-        $items = ItemGroup::all();
-        if ($request->keyword != '') {
-            $items = ItemGroup::where('status', 'LIKE', '%' . $request->keyword . '%')->get();
-        }
-        return response()->json([
-            'items' => $items
+        return view('products.index', [
+            'products' => Product::latest()->paginate(3)
         ]);
     }
 
-    public function update(Request $request)
+
+    public function create(): View
     {
-
-
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'group_code' => 'required|max:255',
-                'group_name' => 'required|string|max:255',
-                'status' => 'required'
-
-            ],
-            []
-        );
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()]);
-        }
-
-        $item = ItemGroup::find($request->id);
-
-        // dd($item);
-        $item->group_name = $request->group_name;
-        $item->group_short_name = $request->group_short_name;
-        $item->status = $request->status;
-
-        $item->save();
-        return response()->json(['success' => 'Item Group Master Updated Successfully!']);
+        return view('products.create');
     }
 
-    public function store(Request $request)
+
+    public function store(StoreProductRequest $request): RedirectResponse
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'group_code' => 'required|unique:item_groups|max:255',
-                'group_name' => 'required|string|max:255',
-                'status' => 'required',
-                'group_short_name' => 'required|string|max:255',
-
-
-            ],
-            []
-        );
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()]);
-        }
-
-        $group = new ItemGroup([
-            'group_name' => $request->input('group_name'),
-            'group_code' => $request->input('group_code'),
-            'group_short_name' => $request->input('group_short_name'),
-
-        ]);
-        $group->save();
-        return response()->json(['success' => 'Item Group Master Added Successfully!']);
+        Product::create($request->all());
+        return redirect()->route('products.index')
+                ->withSuccess('New product is added successfully.');
     }
 
-    public function delete(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
+        //
+    }
 
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'id' => 'required',
-            ],
-            []
-        );
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreItemGroupRequest $request)
+    {
+        //
+    }
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()]);
-        } else {
+    /**
+     * Display the specified resource.
+     */
+    public function show(ItemGroup $itemGroup)
+    {
+        //
+    }
 
-            $item = ItemGroup::find($request->id);
-            $item->delete();
-            return response()->json(['success' => 'Item Group Master Deleted Successfully!']);
-        }
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(ItemGroup $itemGroup)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateItemGroupRequest $request, ItemGroup $itemGroup)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(ItemGroup $itemGroup)
+    {
+        //
     }
 }
