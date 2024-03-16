@@ -84,7 +84,7 @@
                                 <div class="co-lg-12 text-center mt-4">
                                     <button type="submit" id="company_form_btn" class="btn btn-info "><i class="mdi mdi-arrow-right-bold-hexagon-outline "></i> SUBMIT</button>
                                     <button type="button" class="btn btn-gradient-success btn-fw ">
-                                        <a href="{{ route('item-masters-list') }}"><i class="mdi mdi-arrow-left-bold-circle"></i> BACK</a></button>
+                                        <a href="{{ route('item.masters.list') }}"><i class="mdi mdi-arrow-left-bold-circle"></i> BACK</a></button>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +181,7 @@
                     });
                     // Redirect to a specific URL after a delay of 2 seconds (2000 milliseconds)
                     setTimeout(function() {
-                        window.location.href = "{{ route('item-masters-list') }}";
+                        window.location.href = "{{ route('item.masters.list') }}";
                     }, 2000); // 2000 milliseconds = 2 seconds
                 }
 

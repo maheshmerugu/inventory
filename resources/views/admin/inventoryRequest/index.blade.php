@@ -1,4 +1,4 @@
-@extends('layouts.app')
+<!-- @extends('layouts.app') -->
 
 @section('content')
 
@@ -6,9 +6,16 @@
     .modal-content {
         top: 150px;
     }
+
+ 
+
 </style>
+
+
+
+
     <div class="page-header">
-        <h4 class="py-3"> COURT COMPLEX LIST
+        <h4 class="py-3"> iNVENTORY REQUEST LIST
  </h4>
     </div>
     <div class="content-wrapper">
@@ -18,7 +25,7 @@
             <div class="card badge-light">
                 <div class="card-body">
 
-                    <form action="{{ route('courts.complex.list') }}" method="GET">
+                    <form action="{{ route('inventory.request.list') }}" method="GET">
 
                         <div class="slider">
                             <div class="row">
@@ -44,9 +51,14 @@
 
                                 </div>
                                 <div class="col-lg-2"><button id="searchBtn" type="submit" class="btn btn-success btn-fw"> <i class="mdi mdi-magnify"></i> Search</button></div>
-                                
                                 <div class="col-sm-4  text-end mt-2">
-                                    <a href="{{route('courts.complex.create')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
+                                    <a href="{{route('inventory.request.create')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
+                                    <label class="badge badge-info "><i class="mdi  mdi-check-circle-outline me-1"></i>Active</label>
+                                    <label class="badge badge-warning"><i class="mdi mdi-close-circle-outline me-1"></i>In Active</label>
+                                    <a href=""> <label class="badge badge-danger"><i class="mdi   mdi-delete me-1"></i> Delete</label></a>
+                                    <a href=""> </a>
+
+
                                 </div>
                             </div>
                         </div>
@@ -70,9 +82,9 @@
                                             <tr class="badge-secondary">
                                                 <th><input type="checkbox" id="checkall"></th>
                                                 <th>S.no</th>
-                                                <th>District</th>
-                                                <th>Complex Name</th>
-                                                <th>Status</th>
+                                                <th>Subject</th>
+                                                <th>Message</th>
+                                                <th>Requested By</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -83,20 +95,28 @@
                                         <input type="checkbox" class="CheckBoxClass" name="multiple[]" value="1">
                                     </td>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{$item->district->name ?? ''}}</td>
-                                    <td>{{$item->complex_name}}</td>
+                                    <td>{{$item->subject ?? ''}}</td>
+                                    <td>{{$item->message}}</td>
+                                    <td>{{$item->requestedName->name ?? ''}}</td>
                                     <td>
-                                        <label class="badge badge-successs">
-                                            <?php echo $item->status == 1 ? 'Active' : 'Not Active'; ?>
+
+
+
+                                    <label class="badge badge-success">
+                                    <!-- <button class="downloadButton"  data-id="{{ $item->id }}">Download</button> -->
+
+                                    <i class="mdi mdi-reload btn-icon-prepend" onclick="downloadPDF(<?php echo $item->id; ?>)">Download PDF</i>
+
+
                                         </label>
-                                    </td>
-                                    <td>
                                         <label class="badge badge-info me-3">
-                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('courts.complex.edit', $item->id) }}">Update</a></i>
+                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('inventory.request.edit', $item->id) }}">Update</a></i>
                                         </label>
                                         <label class="badge badge-danger">
                                             <!-- <i id="deleteButton" class="mdi mdi-delete me-1"></i> Delete -->
+
                                             <i type="button" class="mdi mdi-delete me-1 deleteButton" data-id="{{ $item->id }}">Delete</i>
+
                                         </label>
                                     </td>
                                 </tr>
@@ -167,7 +187,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('courts.complex.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
+                url: "{{ route('inventory.request.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
                 type: "POST",
                 data: {
                     _method: 'POST', // Specify the method as DELETE
@@ -183,7 +203,7 @@
                         });
                         // Redirect to a specific URL after a successful delete
                         setTimeout(function() {
-                            window.location.href = "{{ route('courts.complex.list') }}";
+                            window.location.href = "{{ route('inventory.request.list') }}";
                         }, 2000); // 2000 milliseconds = 2 seconds
                     } else {
                         iziToast.error({
@@ -223,6 +243,156 @@
     });
 </script>
 
+
+<!-- <script>
+    $(document).ready(function() {
+        // Show delete confirmation modal and get ID when delete button is clicked
+        $(".downloadButton").click(function(e) {
+            
+            var itemId = $(this).data("id");
+            alert(itemId);
+
+            e.preventDefault();
+
+            $.ajax({
+                url: "{{ route('inventory.request.pdf.download', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
+                type: "POST",
+                data: {
+                    _method: 'POST', // Specify the method as DELETE
+                    _token: '{{ csrf_token() }}', // Add CSRF token for Laravel
+                    id: itemId // Pass the item ID to be deleted
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    if (response.success) {
+                        iziToast.success({
+                            message: response.success,
+                            position: 'topRight'
+                        });
+                        // Redirect to a specific URL after a successful delete
+                        setTimeout(function() {
+                            window.location.href = "{{ route('inventory.request.list') }}";
+                        }, 2000); // 2000 milliseconds = 2 seconds
+                    } else {
+                        iziToast.error({
+                            message: 'An error occurred: ' + response.error,
+                            position: 'topRight'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    iziToast.error({
+                        message: 'An error occurred: ' + error,
+                        position: 'topRight'
+                    });
+                }
+            });
+           
+        });
+
+        // Handle delete confirmation
+        $("#confirmDelete").click(function(e) {
+            // Retrieve the ID from the confirm delete button data attribute
+            var itemId = $(this).data("id");
+            e.preventDefault();
+
+            $.ajax({
+                url: "{{ route('inventory.request.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
+                type: "POST",
+                data: {
+                    _method: 'POST', // Specify the method as DELETE
+                    _token: '{{ csrf_token() }}', // Add CSRF token for Laravel
+                    id: itemId // Pass the item ID to be deleted
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    if (response.success) {
+                        iziToast.success({
+                            message: response.success,
+                            position: 'topRight'
+                        });
+                        // Redirect to a specific URL after a successful delete
+                        setTimeout(function() {
+                            window.location.href = "{{ route('inventory.request.list') }}";
+                        }, 2000); // 2000 milliseconds = 2 seconds
+                    } else {
+                        iziToast.error({
+                            message: 'An error occurred: ' + response.error,
+                            position: 'topRight'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    iziToast.error({
+                        message: 'An error occurred: ' + error,
+                        position: 'topRight'
+                    });
+                }
+            });
+        });
+
+        $("#confirmCancel").click(function(e) {
+            // Retrieve the ID from the confirm delete button data attribute
+            var itemId = $(this).data("id");
+            e.preventDefault();
+            $("#deleteConfirmationModal").modal("hide");
+
+
+
+        });
+
+        $("#close").click(function(e) {
+            // Retrieve the ID from the confirm delete button data attribute
+            var itemId = $(this).data("id");
+            e.preventDefault();
+            $("#deleteConfirmationModal").modal("hide");
+
+
+
+        });
+    });
+</script> -->
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+
+
+
+
+<script>
+    function generatePDF(subject, message) {
+        const doc = new jsPDF();
+        doc.text(20, 20, 'Subject: ' + subject);
+        doc.text(20, 30, 'Message: ' + message);
+        doc.save('message.pdf');
+    }
+</script>
+
+<script>
+
+function downloadPDF(itemId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/inventory/inventory-request-download?id=' + itemId, true);
+    xhr.responseType = 'blob';
+
+    xhr.onload = function () {
+        if (this.status === 200) {
+            var blob = new Blob([this.response], { type: 'application/pdf' });
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'document.pdf';
+            link.click();
+        }
+    };
+
+    xhr.send();
+}
+
+
+</script>
 
 
 

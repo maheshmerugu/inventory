@@ -6,6 +6,8 @@ use App\Models\ItemGroup;
 use App\Http\Requests\StoreItemGroupRequest;
 use App\Http\Requests\UpdateItemGroupRequest;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+
 
 
 class ItemGroupController extends Controller
@@ -18,64 +20,65 @@ class ItemGroupController extends Controller
      public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:create-item-group|edit-user|delete-user', ['only' => ['index','show']]);
-        $this->middleware('permission:create-user', ['only' => ['create','store']]);
-        $this->middleware('permission:edit-user', ['only' => ['edit','update']]);
-        $this->middleware('permission:delete-user', ['only' => ['destroy']]);
+        $this->middleware('permission:create-item-group|edit-item-group|delete-item-group', ['only' => ['index','show']]);
+        $this->middleware('permission:create-item-group', ['only' => ['create','store']]);
+        $this->middleware('permission:edit-item-group', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete-item-group', ['only' => ['destroy']]);
     }
 
 
    public function index(): View
     {
-        return view('products.index', [
-            'products' => Product::latest()->paginate(3)
+        return view('admin.itemgroup.index', [
+            'items' => ItemGroup::latest()->paginate(10)
         ]);
     }
 
 
+
     public function create(): View
     {
-        return view('products.create');
+
+
+        return view('admin.itemgroup.create');
     }
 
 
-    public function store(StoreProductRequest $request): RedirectResponse
+    public function store(StoreItemGroupRequest $request)
     {
-        Product::create($request->all());
-        return redirect()->route('products.index')
-                ->withSuccess('New product is added successfully.');
+        ItemGroup::create($request->all());
+        return response()->json(['success' => 'Item Group Master Added Successfully!']);
+
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+   
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreItemGroupRequest $request)
-    {
-        //
-    }
+  
 
     /**
      * Display the specified resource.
      */
-    public function show(ItemGroup $itemGroup)
+    public function show(ItemGroup $itemGroup):View
     {
-        //
+        return view('admin.itemgroup.show', [
+            'items' => $itemGroup
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ItemGroup $itemGroup)
+    public function edit($id):View
+
     {
-        //
+        $item = ItemGroup::find($id);
+        return view('admin.itemgroup.edit', compact('item'));
     }
 
     /**

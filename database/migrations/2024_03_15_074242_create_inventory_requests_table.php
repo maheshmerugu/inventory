@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('courts_complex', function (Blueprint $table) {
+        Schema::create('inventory_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('district_id')->constrained()->onDelete('cascade');
-            $table->string('complex_name');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->string('subject');
+            $table->string('message');
+            $table->string('created_by');
+
+            $table->tinyInteger('status')
+            ->default(0)
+            ->comment('0 - initiated, 1 - received,2 - rejected');  
             $table->timestamps();
         });
     }
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('courts_complex');
+        Schema::dropIfExists('inventory_requests');
     }
 };

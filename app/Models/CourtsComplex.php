@@ -10,7 +10,7 @@ class CourtsComplex extends Model
 {
     use HasFactory;
 
-    protected $table = 'courts_complexs'; // Corrected table name
+    protected $table = 'courts_complexes'; // Corrected table name
     protected $fillable = ['district_id', 'complex_name', 'status'];
 
     // CourtsComplex model

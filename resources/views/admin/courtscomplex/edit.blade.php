@@ -31,7 +31,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>ComplexName</label>
-                                <input type="text" class="form-control form-control-lg" name="name" id="name" value="{{$item->name}}" placeholder="Complex Name" aria-label="ComplexName">
+                                <input type="text" class="form-control form-control-lg" name="name" id="name" value="{{$item->complex_name}}" placeholder="Complex Name" aria-label="ComplexName">
                                 <span id="ComplexNameError" class="text-danger" style="display: none;">ComplexName must contain only letters</span>
                             </div>
                         </div>

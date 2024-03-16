@@ -60,7 +60,7 @@ class CourtComplexController extends Controller
             if ($districtId !== null) {
                 $query->where('district_id', $districtId);
             } else {
-                $query->where('district_id', null); 
+                $query->where('district_id', null);
             }
         }
         if ($statusQuery !== null && $statusQuery !== '') {
@@ -80,9 +80,8 @@ class CourtComplexController extends Controller
         if ($searchQuery !== null && $searchQuery !== '') {
             $query->where('complex_name', 'LIKE', '%' . $searchQuery . '%');
         }
-        // If status query is provided or not empty, add status condition to the query
         if ($statusQuery !== null && $statusQuery !== '') {
-            $query->where('status', 'like', '%' . $statusQuery . '%');
+            $query->where('status', $statusQuery);
         }
         // Retrieve paginated items based on the constructed query
         $items = $query->paginate(10);
@@ -104,12 +103,12 @@ class CourtComplexController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+    //    dd($request->all());
         $validator = Validator::make(
             $request->all(),
             [
                 'district_id' => 'required',
-                'court.*.complex_name' => 'required|unique:courts_complexs,complex_name,NULL,id,district_id,' . $request->district_id,
+                'court.*.complex_name' => 'required|unique:courts_complexes,complex_name,NULL,id,district_id,' . $request->district_id,
             ],
             [
                 'district_id.required' => 'District ID is required.',
@@ -123,11 +122,10 @@ class CourtComplexController extends Controller
         foreach ($request->court as $key => $value) {
             // Add the district_id to the $value array
             $value['district_id'] = $request->district_id;
-            //dd($value['district_id']);
             // Create a new CourtsComplex record with the updated $value array
             CourtsComplex::create($value);
         }
-
+        //dd($request);
         return response()->json(['success' => 'CourtComplex Added Successfully!']);
     }
 
@@ -144,8 +142,7 @@ class CourtComplexController extends Controller
      */
     public function edit(string $id)
     {
-
-        $item = CourtsComplex::find($id);
+        $item = CourtsComplex::find($id); // Using findOrFail to automatically handle 404 if item is not found
         $all_districts = District::all();
 
         return view('admin.courtscomplex.edit', compact('item', 'all_districts'));
@@ -156,9 +153,12 @@ class CourtComplexController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'district_id' => 'required',
+            'status' => 'required|in:0,1',
         ], [
             'name.required' => 'Complex Name is required.',
             'district_id.required' => 'District ID is required.',
+            'status.required' => 'Status is required.',
+            'status.in' => 'Invalid status value.',
         ]);
 
         if ($validator->fails()) {

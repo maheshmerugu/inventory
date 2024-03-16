@@ -52,7 +52,7 @@ class DistrictMasterController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|unique:districts|max:255|regex:/^[a-zA-Z\s]+$/',
+                'name' => 'required|unique:districts|max:255|alpha',
                 'status' => 'required',
             ],
             ['name.required'=>'District Name Field is required.']

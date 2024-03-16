@@ -21,8 +21,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>District<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-lg" name="name" id="name" oninput="validateDistrict()" placeholder="Enter District" aria-label="Title">
-                                <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must be contain only Letters</span>
+                                <input type="text" class="form-control form-control-lg"  name="name" id="name" oninput="validateDistrict()" placeholder="District" aria-label="Title">
+                                <span id="DistrictNameError" class="text-danger" style="display: none;">District Name  must  be contain only Letters</span>
 
                             </div>
                         </div>
@@ -61,16 +61,21 @@
 
 
 <script>
+   
+
+
     function validateDistrict() {
-        var districtName = document.getElementById("name").value;
+        var EmployeeName = document.getElementById("name").value;
         var alphanumericRegex = /^[a-zA-Z\s]+$/;
         var errorElement = document.getElementById("DistrictNameError");
-        if (!alphanumericRegex.test(districtName)) {
+        if (!alphanumericRegex.test(EmployeeName)) {
             errorElement.style.display = "block";
         } else {
             errorElement.style.display = "none";
         }
     }
+
+ 
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

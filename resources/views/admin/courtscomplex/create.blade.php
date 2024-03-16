@@ -6,7 +6,7 @@
 </div>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">
-        <form id="company_form" method="POST">
+    <form id="company_form" method="POST" action="{{ route('courts.complex.store') }}">
             @csrf
 
             <div class="card badge-light">

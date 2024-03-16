@@ -16,7 +16,7 @@
         <div class="col-12 grid-margin stretch-card">
             <div class="card badge-light">
                 <div class="card-body">
-                    <form action="{{ route('item-masters-list') }}" method="GET">
+                    <form action="{{ route('item.masters.list') }}" method="GET">
                         <div class=" slider">
                             <div class="row">
                                 <div class="col-sm-3 mb-1 mt-1">
@@ -91,7 +91,7 @@
                                     </td>
                                     <td>
                                         <label class="badge badge-info me-3">
-                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('item-masters.edit', $item->id) }}">update</a></i>
+                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('item.masters.edit', $item->id) }}">update</a></i>
                                         </label>
                                         <label class="badge badge-danger">
                                             <!-- <i id="deleteButton" class="mdi mdi-delete me-1"></i> Delete -->
@@ -170,7 +170,7 @@
                         });
                         // Redirect to a specific URL after a successful delete
                         setTimeout(function() {
-                            window.location.href = "{{ route('item-masters-list') }}";
+                            window.location.href = "{{ route('item.masters.list') }}";
                         }, 2000); // 2000 milliseconds = 2 seconds
                     } else {
                         iziToast.error({

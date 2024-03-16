@@ -71,8 +71,8 @@
                                         <label for="active">Active</label>
                                         <select class="form-control form-select" name="status" id="active">
                                             <option value="">- Select -</option>
-                                            <option value="0">Active</option>
-                                            <option value="1">In Active</option>
+                                            <option value="0">In Active</option>
+                                            <option value="1">Active</option>
                                         </select>
                                     </div>
                                     <div id="activeError" class="text-danger" style="display:none;">Active selection is required</div>
@@ -80,7 +80,7 @@
                                 <div class="co-lg-12 text-center mt-4">
                                     <button type="submit" id="company_form_btn" class="btn btn-info "><i class="mdi mdi-arrow-right-bold-hexagon-outline "></i> SUBMIT</button>
                                     <button type="button" class="btn btn-gradient-success btn-fw ">
-                                        <i class="mdi mdi-arrow-left-bold-circle"></i> BACK</button>
+                                    <a href="{{route('item.masters.list')}}"><i class="mdi mdi-arrow-left-bold-circle"></i> BACK</a></button>
                                 </div>
                             </div>
                         </div>

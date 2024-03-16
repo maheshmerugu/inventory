@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\District;
 use App\Models\CourtsMaster;
+
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+
+
 
 class CourtMasterController extends Controller
 {
@@ -35,7 +39,10 @@ class CourtMasterController extends Controller
      */
     public function create()
     {
+
        $all_districts= District::all();
+
+
         return view('admin.courts.create',compact('all_districts'));
     }
 
@@ -44,23 +51,29 @@ class CourtMasterController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator = Validator::make(
-            $request->all(),
+            // $request->all(),
             [
-                //'court.*.name' => 'required|unique:courts_masters,name,NULL,id,district_id,' . $request->district_id,
+                'court.*.name' => 'required|unique:courts_masters,name,NULL,id,district_id,' . $request->district_id,
                 'district_id' => 'required',
                 // Add more validation rules as needed
             ],
             [
-                //'court.*.name.required' => 'Court name is required.',
-               // 'court.*.name.unique' => 'Court name must be unique within the district.',
+                'court.*.name.required' => 'Court name is required.',
+                'court.*.name.unique' => 'Court name must be unique within the district.',
                 'district_id.required' => 'District ID is required.',
                 // Add more custom error messages as needed
             ]
         );
+        
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
+
+       
+
+    
         foreach ($request->court as $key => $value) {
 
             // Add the district_id to the $value array
@@ -98,21 +111,25 @@ class CourtMasterController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                //'name' => 'required|unique:courts_masters,name,NULL,id,district_id,' . $request->input('district_id'),
+                'name' => 'required|unique:courts_masters,name,NULL,id,district_id,' . $request->input('district_id'),
                 'district_id' => 'required',
                 // Add more validation rules as needed
             ],
             [
-                //'court.*.name.required' => 'Court name is required.',
-               // 'name.unique' => 'Court name must be unique within the district.',
+                'court.*.name.required' => 'Court name is required.',
+                'name.unique' => 'Court name must be unique within the district.',
                 'district_id.required' => 'District ID is required.',
                 // Add more custom error messages as needed
             ]
         );
+        
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
+
         $item = CourtsMaster::find($request->id);
+
         $item->name = $request->name;
         $item->status = $request->status;
        

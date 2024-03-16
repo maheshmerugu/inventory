@@ -22,8 +22,7 @@ class StoreItemGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:250',
-            'description' => 'required|string'
+            'group_code' => 'required|string|max:250',
         ];
     }
 }
