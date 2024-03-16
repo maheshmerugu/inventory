@@ -10,40 +10,41 @@
             @csrf
 
             <div class="card badge-light">
-            <div class="card-body">
-                                    <form class="form-sample">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Old Password</label>
-                                                    <input type="text" class="form-control form-control-lg" name="current_password" placeholder="Old Password" aria-label="Title">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>New Password</label>
-                                                    <input type="text" name="new_password" class="form-control form-control-lg" placeholder="New Password" aria-label="Sub Title">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Confirm Password</label>
-                                                    <input type="text" name="new_password_confirmation" class="form-control form-control-lg" placeholder="Confirm Password" aria-label="Username">
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <div class="co-lg-12 text-center mt-4">
-                                                <button id="company_form_btn" type="button" class="btn btn-info "> SUBMIT</button>
-                                                <button type="button" class="btn btn-gradient-success btn-fw ">
-                                                    BACK</button>
-
-                                            </div>
-                                    
-                                </div></form>
+                <div class="card-body">
+                    <form class="form-sample">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Old Password</label>
+                                    <input type="password" class="form-control form-control-lg" name="current_password" placeholder="Old Password" aria-label="Title">
+                                </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>New Password</label>
+                                    <input type="password" name="new_password" class="form-control form-control-lg" placeholder="New Password" aria-label="Sub Title">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input type="password" name="new_password_confirmation" class="form-control form-control-lg" placeholder="Confirm Password" aria-label="Username">
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="co-lg-12 text-center mt-4">
+                                <button id="company_form_btn" type="button" class="btn btn-info "> SUBMIT</button>
+                                <button type="button" class="btn btn-gradient-success btn-fw ">
+                                    BACK</button>
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
             </div>
         </form>
     </div>

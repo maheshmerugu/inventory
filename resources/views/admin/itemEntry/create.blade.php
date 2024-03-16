@@ -2,25 +2,23 @@
 
 @section('content')
 <style>
+    .grid-margin .latest table.table tr th,
+    table.table tr td {
+        border-color: #e9e9e9;
+        padding: 23px 3px !important;
+        vertical-align: middle;
+        text-align: left !important;
+        font-size: 14px !important;
+        line-height: 17px;
+    }
 
-.grid-margin .latest table.table tr th, table.table tr td {
-    border-color: #e9e9e9;
-    padding: 23px 3px !important;
-    vertical-align: middle;
-    text-align: left !important;
-    font-size: 14px !important;
-    line-height: 17px;
-}
 
-
-.row{
-    margin-top: 5px;
-}
+    .row {
+        margin-top: 5px;
+    }
 </style>
 
-<link href=
-'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
-          rel='stylesheet'>
+<link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' rel='stylesheet'>
 
 
 <div class="page-header">
@@ -33,91 +31,64 @@
 
             <div class="card badge-light">
                 <div class="card-body">
-
-
-                <div class="row">
-                        <div class="col-lg-12 pb-3">
-                            <h4 class=""> Item Entry  </h4>
-                        </div>
-
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>PO Number<span class="text-danger">*</span></label>
-
-                                <input type="text" name="item[0][amc_warrenty]" placeholder="Enter PO Number" class="form-control"/>
-                                <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must be contain only Letters</span>
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Purchased Date<span class="text-danger" >*</span></label>
-                                <input type="text" class="form-control"  style="width: 250px; margin-left:-23px; height: 43px;" id="datepicker">                               
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Vendor<span class="text-danger">*</span></label>
-
-
-                                <select class="form-control form-select" name="district_id" id="district_id" style="margin-left:-21px; width:256px;">
-                                    <option value="">- Select  -</option>
-                                    @foreach($vendors as $vendor)
-                                    <option value="{{ $vendor->vendor_id}}">{{ $vendor->vendor_name }}</option>
-                                    @endforeach
-                                </select>
-
-                                <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must be contain only Letters</span>
-
-                            </div>
-                        </div>
-
-
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Item Group<span class="text-danger">*</span></label>
-
-
-                                <select class="form-control form-select" name="district_id" id="district_id" style="margin-left:-28px; width:150px;">
-                                    <option value="">- Select -</option>
-                                    @foreach($item_groups as $group)
-                                    <option value="{{ $group}}">{{ $group->group_name }}</option>
-                                    @endforeach
-                                </select>
-
-                                <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must be contain only Letters</span>
-
-                            </div>
-                        </div>
-
-                      
-
-        
-
-                    </div>
-
                     <div class="row">
-                      
-                        
-
+                        <div class="col-lg-12 pb-3">
+                            <h4 class=""> Item Entry </h4>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>PO Number<span class="text-danger">*</span></label>
+                                    <input type="text" name="item[0][amc_warrenty]" placeholder="Enter PO Number" style="width: 120%;margin-left: -7PX;" class="form-control" />
+                                    <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must contain only letters</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label style="margin-left: 24px;">Purchased Date<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" style="width: 81%;margin-left: 23px;" id="datepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label style="margin-left: -71px;">Vendor<span class="text-danger">*</span></label>
+                                    <select class="form-control form-select" name="district_id" id="district_id" style="width: 87%;margin-left: -65px;">
+                                        <option value="">- Select -</option>
+                                        @foreach($vendors as $vendor)
+                                        <option value="{{ $vendor->vendor_id }}">{{ $vendor->vendor_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must contain only letters</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label style="    margin-left: -116px;">Item Group<span class="text-danger">*</span></label>
+                                    <select class="form-control form-select" name="district_id" id="district_id" style="margin-left: -113px;">
+                                        <option value="">- Select -</option>
+                                        @foreach($vendors as $vendor)
+                                        <option value="{{ $vendor->vendor_id }}">{{ $vendor->vendor_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must contain only letters</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-4">
-                            <table class="table table" id="dynamicTable">
-
+                            <table class="table" id="dynamicTable">
                                 <tr>
-                                    <td ><input type="text" name="item[0][item_name]" placeholder="Enter Item Name" class="form-control" style="width:227px;" /></td>
-                                    <td ><input type="text" name="item[0][serial_number]" placeholder="Enter Serial Number" class="form-control" style="width: 256px;margin-left:8px" /></td>
-                                    <td ><input type="text" name="item[0][amc_warrenty]" placeholder="Enter Amc Warratety details" class="form-control" style="width: 256px;margin-left:8px" /></td>
-
+                                    <td><input type="text" name="item[0][item_name]" placeholder="Enter Item Name" class="form-control" style="width: 275px;" /></td>
+                                    <td><input type="text" name="item[0][serial_number]" placeholder="Enter Serial Number" class="form-control" style="width: 291px; margin-left: 17px;" /></td>
+                                    <td><input type="text" name="item[0][amc_warrenty]" placeholder="Enter AMC Warranty details" class="form-control" style="width: 319px; margin-left: 8px;" /></td>
                                     <td>
-                                        <select style="width:150px;" class="form-control form-select" name="item[0][status]">
+                                        <select class="form-control form-select" name="item[0][status]" style="width: 356px; margin-left: 29px;">
                                             <option value="">- Select Status -</option>
                                             <option value="0">Delivered</option>
-                                            <option value="1" >Installed</option>
+                                            <option value="1">Installed</option>
                                         </select>
                                     </td>
                                     <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>
@@ -125,37 +96,30 @@
                             </table>
 
                         </div>
-
-                        <div class="co-lg-12 text-center mt-4">
-                            <button type="button" id="company_form_btn" class="btn btn-info "><i class="mdi mdi-arrow-right-bold-hexagon-outline "></i>
-                                SUBMIT</button>
-                            <button type="button" class="btn btn-gradient-success btn-fw ">
-                                <i class="mdi mdi-arrow-left-bold-circle"></i> BACK</button>
-
+                        <div class="col-lg-12 text-center mt-4">
+                            <button type="button" id="company_form_btn" class="btn btn-info"><i class="mdi mdi-arrow-right-bold-hexagon-outline"></i> SUBMIT</button>
+                            <button type="button" class="btn btn-gradient-success btn-fw"><i class="mdi mdi-arrow-left-bold-circle"></i> BACK</button>
                         </div>
-
                     </div>
                 </div>
             </div>
+
         </form>
     </div>
 
 </div>
-<link href=
-'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
-          rel='stylesheet'>
 
 <script>
-  $(function() {
-    $( "#datepicker" ).datepicker({
-    
-        changeMonth: true,
-        changeYear: true,
-        showButtonPanel: true,
-    
+    $(function() {
+        $("#datepicker").datepicker({
+
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+
+        });
     });
-  });
-  </script>
+</script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -164,10 +128,10 @@
         $("#add").click(function() {
             ++i;
             var newRow = $('<tr>\
-                        <td><input type="text" style="width:227px;"  name="item[' + i + '][name]" placeholder="Enter item Name" class="form-control" /></td>\
-                        <td><input type="text" style="width: 256px;margin-left:8px" name="item[' + i + '][serialnumber]" placeholder="Enter Serial Number" class="form-control"  /></td>\
-                        <td><input type="text" style="width: 256px;margin-left:8px" name="item[' + i + '][serialnumber]" placeholder="Enter Amc Warrenty Details" class="form-control"  /></td>\
-                        <td><select class="form-control form-select status" name="court[' + i + '][status]" id="status_' + i + '">\
+                        <td><input type="text" style="width:275px;"  name="item[' + i + '][name]" placeholder="Enter item Name" class="form-control" /></td>\
+                        <td><input type="text" style="width: 291px; margin-left: 17px;" name="item[' + i + '][serialnumber]" placeholder="Enter Serial Number" class="form-control"  /></td>\
+                        <td><input type="text" style="width: 319px; margin-left: 8px;" name="item[' + i + '][serialnumber]" placeholder="Enter Amc Warrenty Details" class="form-control"  /></td>\
+                        <td><select class="form-control form-select status" style="width: 356px; margin-left: 29px;"  name="court[' + i + '][status]" id="status_' + i + '">\
                             <option value="">- Select Status -</option>\
                             <option value="0">Delivered</option>\
                             <option value="1"  >Installed</option>\
@@ -202,7 +166,6 @@
 
 
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
 <script>
     $("#company_form_btn").click(function(e) {

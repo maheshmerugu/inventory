@@ -138,6 +138,8 @@ Route::post('/inventory-request-list/update/{id}', [InventoryRequestController::
 Route::post('/inventory-request-list/delete/{id?}', [InventoryRequestController::class ,'delete'])->name('inventory.request.delete');
 
 
+Route::any('/inventory-request-download', [InventoryRequestController::class ,'download'])->name('inventory.request.pdf.download');
+
 
 Route::resources([
         'roles' => RoleController::class,

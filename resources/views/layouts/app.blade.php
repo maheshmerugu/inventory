@@ -38,6 +38,8 @@
     <link rel="shortcut icon" href="{{asset('public/assets/images/favicon.png')}}" />
 
 
+    <!-- calender ui jquery -->
+
 
     <!-- container-scroller -->
     <!-- plugins:js -->
@@ -53,24 +55,13 @@
     <script src="{{asset('public/assets/js/todolist.js')}}"></script>
 
 
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="{{asset('public/assets/js/hoverable-collapse.js')}}"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
     <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
 
     <style>
-        .footer {
-
-            border-top: 0px solid #e7dee9;
-
-
-        }
+       
     </style>
 
 
@@ -157,8 +148,7 @@
                         </a>
                         <div class="collapse" id="ui-basics-purchase">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="{{route('users.master')}}">Item Entry</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="item-master.php">Manage Items</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('items.create')}}">Item Entry</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('itemgroup.index')}}">Dispatch</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('vendor.master')}}">Return</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('inventory.request.create')}}">Inventory Request</a></li>
@@ -210,7 +200,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="change-password.php">
+                        <a class="nav-link" href="{{route('user.password.change')}}">
                             <span class="menu-title"> <i class="mdi mdi-lock menu-icon f2"></i> &nbsp; Change Password</span>
                             <i class="mdi mdi-lock menu-icon f1"></i>
                         </a>
@@ -262,25 +252,11 @@
             <!-- page-body-wrapper ends -->
         </a>
     </div><a href="" target="_new">
-        <!-- container-scroller -->
-        <!-- plugins:js -->
-        <script src="assets/vendors/js/vendor.bundle.base.js"></script>
-        <!-- endinject -->
-        <!-- Plugin js for this page -->
-        <script src="assets/vendors/chart.js/Chart.min.js"></script>
-        <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
-        <!-- End plugin js for this page -->
-        <!-- inject:js -->
-        <script src="assets/js/off-canvas.js"></script>
-        <script src="public/assets/js/hoverable-collapse.js"></script>
-        <script src="public/assets/js/misc.js"></script>
-        <!-- endinject -->
-        <!-- Custom js for this page -->
-        <script src="assets/js/dashboard.js"></script>
-        <script src="assets/js/todolist.js"></script>
-        <!-- End custom js for this page -->
-
-
+      
+     
+    <script src="{{asset('public/assets/js/hoverable-collapse.js')}}"></script>
+        <script src="{{asset('public/assets/js/misc.js')}}"></script>
+      
     </a>
 </body>
 
