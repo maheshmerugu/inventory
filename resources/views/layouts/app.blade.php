@@ -128,7 +128,7 @@
                         <div class="collapse" id="ui-basics-masters">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="{{route('users.master')}}">Create Users</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="item-master.php">Item Master</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('item.masters.list')}}">Item Master</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('itemgroup.index')}}">Item Group</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('vendor.master')}}">Vendor Master</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('location.master')}}">Location Master</a></li>
@@ -137,6 +137,7 @@
                                 <li class="nav-item"> <a class="nav-link" href="section.php">Section</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('district.master')}}">District</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('courts.master.list')}}">Courts</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('courts.complex.list')}}">CourtComplex</a></li>
                             </ul>
                         </div>
                     </li>

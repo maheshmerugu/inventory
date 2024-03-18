@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -7,39 +6,30 @@
     .modal-content {
         top: 150px;
     }
-
- 
-
 </style>
 
-
-
-
+<div class="main-panel">
     <div class="page-header">
-        <h4 class="py-3"> Item Group Master List </h4>
+        <h4 class="py-3">Item Master</h4>
     </div>
     <div class="content-wrapper">
         <div class="col-12 grid-margin stretch-card">
-
-
             <div class="card badge-light">
                 <div class="card-body">
-
-                    <form action="{{ route('itemgroup.index') }}" method="GET">
-
+                    <form action="{{ route('item.masters.list') }}" method="GET">
                         <div class=" slider">
                             <div class="row">
                                 <div class="col-sm-3 mb-1 mt-1">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <input type="text" name="search" class="form-control" placeholder=" Search">
+                                            <input type="text" name="search" class="form-control" placeholder=" Search" value="{{ $searchQuery ?? '' }}">
                                             <div class="input-group-append">
                                                 <i class="mdi mdi-magnify"></i>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
+
                                 <div class="col-sm-3 mb-1 mt-1">
                                     <div class="form-group">
                                         <select class="form-control form-select" name="status" id="status">
@@ -52,26 +42,15 @@
                                 </div>
                                 <div class="col-lg-2"><button id="searchBtn" type="submit" class="btn btn-success btn-fw"> <i class="mdi mdi-magnify"></i> Search</button></div>
                                 <div class="col-sm-4  text-end mt-2">
-
-                                    @can('create-item-group')
-                                    <a href="{{route('itemgroup.create')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
-                                      @endcan
-
-
+                                    <a href="{{route('item-masters')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
                                     <label class="badge badge-info "><i class="mdi  mdi-check-circle-outline me-1"></i>Active</label>
                                     <label class="badge badge-warning"><i class="mdi mdi-close-circle-outline me-1"></i>In Active</label>
                                     <a href=""> <label class="badge badge-danger"><i class="mdi   mdi-delete me-1"></i> Delete</label></a>
                                     <a href=""> </a>
-
-
                                 </div>
                             </div>
                         </div>
-
                     </form>
-
-
-
                 </div>
             </div>
             <div></div>
@@ -86,9 +65,10 @@
                                 <tr class="badge-secondary">
                                     <th><input type="checkbox" id="checkall"></th>
                                     <th>S.No</th>
-                                    <th>Group Code</th>
-                                    <th>Group Name</th>
-                                    <th>Group Short Name</th>
+                                    <th>Item Code</th>
+                                    <th>Item Name</th>
+                                    <th>PN</th>
+                                    <th>Critical</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -100,62 +80,42 @@
                                         <input type="checkbox" class="CheckBoxClass" name="multiple[]" value="1">
                                     </td>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{$item->group_code}}</td>
-                                    <td>{{$item->group_name}}</td>
-                                    <td>{{$item->group_short_name}}</td>
+                                    <td>{{$item->item_code}}</td>
+                                    <td>{{$item->item_name}}</td>
+                                    <td>{{$item->pn}}</td>
+                                    <td>{{$item->critical}}</td>
                                     <td>
                                         <label class="badge badge-successs">
                                             <?php echo $item->status == 1 ? 'Active' : 'Not Active'; ?>
                                         </label>
                                     </td>
                                     <td>
-
-
-                                    @can('edit-item-group')
-                                    <label class="badge badge-info me-3">
-                                    <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('itemgroup.edit', $item->id) }}">Update</a></i>
-                                    </label>
-                                    @endcan
-
-
-                                    @can('delete-item-group')
-
+                                        <label class="badge badge-info me-3">
+                                            <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('item.masters.edit', $item->id) }}">update</a></i>
+                                        </label>
                                         <label class="badge badge-danger">
                                             <!-- <i id="deleteButton" class="mdi mdi-delete me-1"></i> Delete -->
-                                            <i type="button" class="mdi mdi-delete me-1 deleteButton" data-id="{{ $item->id }}">Delete</i>
-                                        </label>
-                                        @endcan
 
+                                            <i type="button" class="mdi mdi-delete me-1 deleteButton" data-id="{{ $item->id }}">Delete</i>
+
+                                        </label>
                                     </td>
                                 </tr>
                                 @endforeach
-
-
                             </tbody>
-
-
-
                         </table>
                         {{ $items->links() }}
-
                     </div>
-
-                    
-
-
                 </div>
-
             </div>
-
-
-
         </div>
 
     </div>
 
-   
-
-
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+    <!-- partial -->
+</div>
 <!-- HTML for delete confirmation modal -->
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -176,10 +136,6 @@
         </div>
     </div>
 </div>
-
-
-
-
 <script>
     $(document).ready(function() {
         // Show delete confirmation modal and get ID when delete button is clicked
@@ -198,7 +154,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('itemgroup.destroy', $item->id) }}", // Adjust the route with item ID parameter
+                url: "{{ route('item-masters.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
                 type: "POST",
                 data: {
                     _method: 'POST', // Specify the method as DELETE
@@ -214,7 +170,7 @@
                         });
                         // Redirect to a specific URL after a successful delete
                         setTimeout(function() {
-                            window.location.href = "{{ route('itemgroup.index') }}";
+                            window.location.href = "{{ route('item.masters.list') }}";
                         }, 2000); // 2000 milliseconds = 2 seconds
                     } else {
                         iziToast.error({
@@ -237,9 +193,6 @@
             var itemId = $(this).data("id");
             e.preventDefault();
             $("#deleteConfirmationModal").modal("hide");
-
-
-
         });
 
         $("#close").click(function(e) {
@@ -253,12 +206,4 @@
         });
     });
 </script>
-
-
-
-
-
-
-
-
 @endsection

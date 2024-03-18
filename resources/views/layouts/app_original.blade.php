@@ -140,6 +140,7 @@
           <li class="nav-item"> <a class="nav-link" href="section.php">Section</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{route('district.master')}}">District</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{route('courts.master')}}">Courts</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{route('courts.complex')}}">CourtComplex</a></li>
 
         </ul>
       </div>

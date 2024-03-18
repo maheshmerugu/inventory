@@ -34,7 +34,6 @@ class CourtMasterController extends Controller
         $items = $query->paginate(10);
         return view('admin.courts.index', compact('items', 'searchQuery', 'statusQuery'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -54,7 +53,7 @@ class CourtMasterController extends Controller
     {
 
         $validator = Validator::make(
-            $request->all(),
+            // $request->all(),
             [
                 'court.*.name' => 'required|unique:courts_masters,name,NULL,id,district_id,' . $request->district_id,
                 'district_id' => 'required',
@@ -94,7 +93,6 @@ class CourtMasterController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -105,7 +103,6 @@ class CourtMasterController extends Controller
 
         return view('admin.courts.edit', compact('item','all_districts'));
     }
-
     /**
      * Update the specified resource in storage.
      */
