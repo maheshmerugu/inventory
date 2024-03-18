@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
 
     //item-master
 
+    //item-master
     Route::any('/item-masters', [ItemMasterController::class, 'save'])->name('item-masters');
     Route::any('/item-masters-list', [ItemMasterController::class, 'index'])->name('item.masters.list');
     Route::post('/item-master-store', [ItemMasterController::class, 'store'])->name('itemmaster.store');

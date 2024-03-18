@@ -1,12 +1,9 @@
-<div>
-    <!-- He who is contented is rich. - Laozi -->
-</div>
 @extends('layouts.app')
 
 @section('content')
 <div class="main-panel">
     <div class="page-header">
-        <h4 class=""> Master </h4> <a href="{{('itemgroup.index')}}" class=" "> <label class="badge badge-info"><i class="mdi mdi-apps"></i> Manage</label></a>
+        <h4 class=""> Master </h4> <a href="{{('item-groups-masters-list')}}" class=" "> <label class="badge badge-info"><i class="mdi mdi-apps"></i> Manage</label></a>
     </div>
     <div class="content-wrapper">
         <div class="col-12 grid-margin stretch-card">
@@ -75,7 +72,7 @@
                                     <button type="submit" id="company_form_btn" class="btn btn-info "><i class="mdi mdi-arrow-right-bold-hexagon-outline "></i>
                                         UPDATE</button>
                                     <button type="submit" class="btn btn-gradient-success btn-fw ">
-                                        <a href="{{route('itemgroup.index')}}" class="mdi mdi-arrow-left-bold-circle"></a> BACK</button>
+                                        <a href="{{route('item-groups-masters-list')}}" class="mdi mdi-arrow-left-bold-circle"></a> BACK</button>
 
                                 </div>
 
@@ -136,7 +133,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script>
+<<script>
     $("#company_form_btn").click(function(e) {
         e.preventDefault();
         let form = $('#company_form')[0];
@@ -144,7 +141,7 @@
         let itemId = "{{ $item->id }}"; // Assuming you have the item ID available
 
         $.ajax({
-            url: "{{ route('itemgroup.update', ['id' => $item->id]) }}", // Adjust the route with item ID parameter
+            url: "{{ route('item-groups-masters.update', ['id' => $item->id]) }}", // Adjust the route with item ID parameter
             type: "POST",
             data: data,
             dataType: "JSON",
@@ -172,7 +169,7 @@
                     });
                     // Redirect to a specific URL after a delay of 2 seconds (2000 milliseconds)
                     setTimeout(function() {
-                        window.location.href = "{{ route('itemgroup.index') }}";
+                        window.location.href = "{{ route('item-groups-masters-list') }}";
                     }, 2000); // 2000 milliseconds = 2 seconds
                 }
 

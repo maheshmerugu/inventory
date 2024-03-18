@@ -2,98 +2,142 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ItemGroup;
-use App\Http\Requests\StoreItemGroupRequest;
-use App\Http\Requests\UpdateItemGroupRequest;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
+use App\Models\ItemGroup;
 
 
 class ItemGroupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
 
-
-     public function __construct()
+    public function index(Request $request)
     {
-        $this->middleware('auth');
-        $this->middleware('permission:create-item-group|edit-item-group|delete-item-group', ['only' => ['index','show']]);
-        $this->middleware('permission:create-item-group', ['only' => ['create','store']]);
-        $this->middleware('permission:edit-item-group', ['only' => ['edit','update']]);
-        $this->middleware('permission:delete-item-group', ['only' => ['destroy']]);
+        $searchQuery = $request->input('search');
+        $statusQuery = $request->input('status');
+
+        // Initialize the query builder
+        $query = ItemGroup::query();
+        // If search query is provided or not empty, add search condition to the query
+        if ($searchQuery !== null && $searchQuery !== '') {
+            $query->where('group_code', 'like', '%' . $searchQuery . '%');
+        }
+
+        // If status query is provided or not empty, add status condition to the query
+        if ($statusQuery !== null && $statusQuery !== '') {
+            $query->where('status', 'like', '%' . $statusQuery . '%');
+        }
+
+
+        // Retrieve paginated items based on the constructed query
+        $items = $query->paginate(10);
+
+
+        return view('admin.itemgroup.index', compact('items', 'searchQuery', 'statusQuery'));
     }
 
 
-   public function index(): View
-    {
-        return view('admin.itemgroup.index', [
-            'items' => ItemGroup::latest()->paginate(10)
-        ]);
-    }
 
-
-
-    public function create(): View
-    {
-
-
-        return view('admin.itemgroup.create');
-    }
-
-
-    public function store(StoreItemGroupRequest $request)
-    {
-        ItemGroup::create($request->all());
-        return response()->json(['success' => 'Item Group Master Added Successfully!']);
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-   
-
-    /**
-     * Store a newly created resource in storage.
-     */
-  
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(ItemGroup $itemGroup):View
-    {
-        return view('admin.itemgroup.show', [
-            'items' => $itemGroup
-        ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id):View
+    public function edit($id)
 
     {
         $item = ItemGroup::find($id);
         return view('admin.itemgroup.edit', compact('item'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateItemGroupRequest $request, ItemGroup $itemGroup)
+    public function create()
     {
-        //
+        return view('admin.itemgroup.save');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ItemGroup $itemGroup)
+    public function search(Request $request)
     {
-        //
+        $items = ItemGroup::all();
+        if ($request->keyword != '') {
+            $items = ItemGroup::where('status', 'LIKE', '%' . $request->keyword . '%')->get();
+        }
+        return response()->json([
+            'items' => $items
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'group_code' => 'required|max:255',
+                'group_name' => 'required|string|max:255',
+                'status' => 'required'
+
+            ],
+            []
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }
+
+        $item = ItemGroup::find($request->id);
+
+        // dd($item);
+        $item->group_name = $request->group_name;
+        $item->group_short_name = $request->group_short_name;
+        $item->status = $request->status;
+
+        $item->save();
+        return response()->json(['success' => 'Item Group Master Updated Successfully!']);
+    }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'group_code' => 'required|unique:item_groups|max:255',
+                'group_name' => 'required|string|max:255',
+                'status' => 'required',
+                'group_short_name' => 'required|string|max:255',
+
+
+            ],
+            []
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }
+
+        $group = new ItemGroup([
+            'group_name' => $request->input('group_name'),
+            'group_code' => $request->input('group_code'),
+            'group_short_name' => $request->input('group_short_name'),
+
+        ]);
+        $group->save();
+        return response()->json(['success' => 'Item Group Master Added Successfully!']);
+    }
+
+    public function delete(Request $request)
+    {
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'id' => 'required',
+            ],
+            []
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        } else {
+
+            $item = ItemGroup::find($request->id);
+            $item->delete();
+            return response()->json(['success' => 'Item Group Master Deleted Successfully!']);
+        }
     }
 }
