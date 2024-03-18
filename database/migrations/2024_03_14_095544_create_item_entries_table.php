@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('item_entries', function (Blueprint $table) {
             $table->id();
-            $table->string('group_code');
+            $table->string('po_number');
+            $table->date('purchased_date');
+            $table->string('vendor_id');
+            $table->string('item_group_id');
             $table->string('item_name');
             $table->string('serial_number');
             $table->string('amc_warrenty');

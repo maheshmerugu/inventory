@@ -6,16 +6,34 @@ use App\Models\ItemEntry;
 use App\Models\ItemGroup;
 use App\Models\VendorMaster;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class ItemEntryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.itementry.index');
+
+        $searchQuery = $request->input('search');
+        $statusQuery = $request->input('status');
+        // Initialize the query builder
+        $query = ItemEntry::query();
+        // If search query is provided or not empty, add search condition to the query
+        if ($searchQuery !== null && $searchQuery !== '') {
+            $query->where('group_code', 'like', '%' . $searchQuery . '%');
+        }
+        // If status query is provided or not empty, add status condition to the query
+        if ($statusQuery !== null && $statusQuery !== '') {
+            $query->where('status', 'like', '%' . $statusQuery . '%');
+        }
+        // Retrieve paginated items based on the constructed query
+        $items = $query->paginate(10);
+        return view('admin.itementry.index', compact('items', 'searchQuery', 'statusQuery'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -23,11 +41,10 @@ class ItemEntryController extends Controller
     public function create()
     {
 
-        $item_groups=ItemGroup::all();
-        $vendors=VendorMaster::all();
+        $item_groups = ItemGroup::all();
+        $vendors = VendorMaster::all();
 
-        return view('admin.itementry.create',compact('item_groups','vendors'));
-
+        return view('admin.itementry.create', compact('item_groups', 'vendors'));
     }
 
     /**
@@ -35,7 +52,42 @@ class ItemEntryController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'po_number' => 'required|unique:item_entries|max:255',
+                'vendor_id' => 'max:10', 'min:10',
+                'purchased_date' => 'required|date_format:Y-m-d',
+                'item_group_id' => 'required',
+
+
+            ],
+            []
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        } else {
+
+
+            try {
+
+                foreach ($request->item as $key => $value) {
+
+                    $value['po_number'] = $request->po_number;
+                    $value['purchased_date'] = $request->purchased_date;
+                    $value['vendor_id'] = $request->vendor_id;
+                    $value['item_group_id'] = $request->item_group_id;
+                    ItemEntry::create($value);
+                }
+
+                return response()->json(['success' => 'Inventory Request Added Successfully!']);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to add Inventory Request: ' . $e->getMessage()], 500);
+            }
+        }
     }
 
     /**
@@ -51,7 +103,11 @@ class ItemEntryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $item=ItemEntry::find($id);
+        $vendors=VendorMaster::all();
+        $item_groups=ItemGroup::all();
+        return view('admin.itementry.edit',compact('item','vendors','item_groups'));
     }
 
     /**
@@ -59,7 +115,46 @@ class ItemEntryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'po_number' => 'required',
+                'vendor_id' => 'max:10', 'min:10',
+                'purchased_date' => 'required|date_format:Y-m-d',
+                'item_group_id' => 'required',
+                'item_name'=>'required',
+                'serial_number'=>'required',
+                'amc_warrenty'=>'required'
+
+
+            ],
+            []
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        } else {
+
+
+            try {
+
+               $item= ItemEntry::find($id);
+               $item->purchased_date=$request->purchased_date;
+               $item->vendor_id=$request->vendor_id;
+               $item->item_group_id=$request->item_group_id;
+               $item->amc_warrenty=$request->amc_warrenty;
+               $item->status=$request->status;
+               $item->save();
+
+
+                return response()->json(['success' => 'Inventory Request Added Successfully!']);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to add Inventory Request: ' . $e->getMessage()], 500);
+            }
+        }
+        
     }
 
     /**

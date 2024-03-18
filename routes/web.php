@@ -67,6 +67,10 @@ Route::any('/item-entry-create', [ItemEntryController::class, 'create'])->name('
 Route::any('/item-entry-store', [ItemEntryController::class, 'store'])->name('items.store');
 Route::get('/item-entry-index', [ItemEntryController::class, 'index'])->name('items.index');
 
+Route::any('/item-entry/edit/{id}', [ItemEntryController::class ,'edit'])->name('items.edit');
+Route::post('/item-entry/update/{id}', [ItemEntryController::class ,'update'])->name('items.update');
+Route::post('/item-entry/delete/{id?}', [ItemEntryController::class ,'delete'])->name('items.delete');
+
 
 //vendor master-routes
 Route::get('/vendor-master', [VendorMasterController::class, 'create'])->name('vendor.master');

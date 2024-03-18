@@ -44,16 +44,12 @@ class InventoryRequestController extends Controller
 
 
         return view('admin.inventoryRequest.index', compact('items', 'searchQuery', 'statusQuery'));
-        return view('admin.inventoryRequest.index', compact('items'));
     }
 
     public function store(Request $request)
     {
 
         $user_id = Auth::id();
-
-
-
         $validator = Validator::make(
             $request->all(),
             [

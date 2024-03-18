@@ -22,7 +22,7 @@
 
 
 <div class="page-header">
-    <h4 class=""> Master </h4> <a href="{{route('courts.master.list')}}" class=" "> <label class="badge badge-info"><i class="mdi mdi-apps"></i> Manage</label></a>
+    <h4 class=""> Master </h4> <a href="{{route('items.index')}}" class=" "> <label class="badge badge-info"><i class="mdi mdi-apps"></i> Manage</label></a>
 </div>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">
@@ -48,7 +48,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label style="margin-left: 24px;">Purchased Date<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="purchased_date" style="width: 81%;margin-left: 23px;" id="datepicker">
+                                    <input type="text" class="form-control" name="purchased_date"  style="width: 81%;margin-left: 23px;" id="datepicker">
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -66,7 +66,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label style="    margin-left: -116px;">Item Group<span class="text-danger">*</span></label>
-                                    <select class="form-control form-select" name="district_id" id="district_id" style="margin-left: -113px;">
+                                    <select class="form-control form-select" name="item_group_id" id="item_group_id" style="margin-left: -113px;">
                                         <option value="">- Select -</option>
                                         @foreach($item_groups as $group)
                                         <option value="{{ $group->group_code }}">{{ $group->group_name }}</option>
@@ -113,6 +113,9 @@
     $(function() {
         $("#datepicker").datepicker({
 
+            dateFormat: "yy-mm-dd",
+
+
             changeMonth: true,
             changeYear: true,
             showButtonPanel: true,
@@ -128,10 +131,10 @@
         $("#add").click(function() {
             ++i;
             var newRow = $('<tr>\
-                        <td><input type="text" style="width:275px;"  name="item[' + i + '][name]" placeholder="Enter item Name" class="form-control" /></td>\
-                        <td><input type="text" style="width: 291px; margin-left: 17px;" name="item[' + i + '][serialnumber]" placeholder="Enter Serial Number" class="form-control"  /></td>\
-                        <td><input type="text" style="width: 319px; margin-left: 8px;" name="item[' + i + '][serialnumber]" placeholder="Enter Amc Warrenty Details" class="form-control"  /></td>\
-                        <td><select class="form-control form-select status" style="width: 356px; margin-left: 29px;"  name="court[' + i + '][status]" id="status_' + i + '">\
+                        <td><input type="text" style="width:275px;"  name="item[' + i + '][item_name]" placeholder="Enter item Name" class="form-control" /></td>\
+                        <td><input type="text" style="width: 291px; margin-left: 17px;" name="item[' + i + '][serial_number]" placeholder="Enter Serial Number" class="form-control"  /></td>\
+                        <td><input type="text" style="width: 319px; margin-left: 8px;" name="item[' + i + '][amc_warrenty]" placeholder="Enter Amc Warrenty Details" class="form-control"  /></td>\
+                        <td><select class="form-control form-select status" style="width: 356px; margin-left: 29px;"  name="item[' + i + '][status]" id="status_' + i + '">\
                             <option value="">- Select Status -</option>\
                             <option value="0">Delivered</option>\
                             <option value="1"  >Installed</option>\
@@ -202,7 +205,7 @@
 
                     });
                     setTimeout(function() {
-                        window.location.href = "{{ route('courts.master.list') }}";
+                        window.location.href = "{{ route('items.index') }}";
                     }, 2000); // 2000 milliseconds = 2 seconds
                 }
 
