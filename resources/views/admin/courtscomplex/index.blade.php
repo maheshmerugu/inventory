@@ -151,28 +151,24 @@
 
 <script>
     $(document).ready(function() {
-        // Show delete confirmation modal and get ID when delete button is clicked
         $(".deleteButton").click(function() {
             var itemId = $(this).data("id");
             $("#deleteConfirmationModal").modal("show");
-
-            // Set the ID in the confirm delete button data attribute
             $("#confirmDelete").data("id", itemId);
         });
 
         // Handle delete confirmation
         $("#confirmDelete").click(function(e) {
-            // Retrieve the ID from the confirm delete button data attribute
             var itemId = $(this).data("id");
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('courts.complex.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
+                url: "{{ route('courts.complex.delete', ['id' => $item->id ?? '']) }}", 
                 type: "POST",
                 data: {
-                    _method: 'POST', // Specify the method as DELETE
-                    _token: '{{ csrf_token() }}', // Add CSRF token for Laravel
-                    id: itemId // Pass the item ID to be deleted
+                    _method: 'POST', 
+                    _token: '{{ csrf_token() }}', 
+                    id: itemId 
                 },
                 dataType: "JSON",
                 success: function(response) {

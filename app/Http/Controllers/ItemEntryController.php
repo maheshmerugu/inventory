@@ -16,20 +16,15 @@ class ItemEntryController extends Controller
     {
         return view('admin.itementry.index');
     }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-
         $item_groups=ItemGroup::all();
         $vendors=VendorMaster::all();
-
         return view('admin.itementry.create',compact('item_groups','vendors'));
-
     }
-
     /**
      * Store a newly created resource in storage.
      */

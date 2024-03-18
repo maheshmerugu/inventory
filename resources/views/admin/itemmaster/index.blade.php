@@ -154,12 +154,12 @@
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('item-masters.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
+                url: "{{ route('item-masters.delete', ['id' => $item->id ?? '']) }}", 
                 type: "POST",
                 data: {
-                    _method: 'POST', // Specify the method as DELETE
-                    _token: '{{ csrf_token() }}', // Add CSRF token for Laravel
-                    id: itemId // Pass the item ID to be deleted
+                    _method: 'POST',
+                    _token: '{{ csrf_token() }}', 
+                    id: itemId 
                 },
                 dataType: "JSON",
                 success: function(response) {

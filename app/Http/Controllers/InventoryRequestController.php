@@ -10,9 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
-
-
-
 class InventoryRequestController extends Controller
 {
     public function create()

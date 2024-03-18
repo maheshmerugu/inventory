@@ -13,31 +13,18 @@ class EmployeeMasterController extends Controller
      */
     public function index(Request $request)
     {
-
         $searchQuery = $request->input('search');
         $statusQuery = $request->input('status');
-
-        // Initialize the query builder
         $query = EmployeeMaster::query();
-        // If search query is provided or not empty, add search condition to the query
         if ($searchQuery !== null && $searchQuery !== '') {
             $query->where('group_code', 'like', '%' . $searchQuery . '%');
         }
-
-        // If status query is provided or not empty, add status condition to the query
         if ($statusQuery !== null && $statusQuery !== '') {
             $query->where('status', 'like', '%' . $statusQuery . '%');
         }
-
-
-        // Retrieve paginated items based on the constructed query
         $items = $query->paginate(10);
-
-
         return view('admin.employee.index', compact('items', 'searchQuery', 'statusQuery'));
-    
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -45,7 +32,6 @@ class EmployeeMasterController extends Controller
     {
         return view('admin.employee.create');
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -57,17 +43,12 @@ class EmployeeMasterController extends Controller
                 'employee_code' => 'required|unique:employee_masters|max:255',
                 'employee_mobile'=>'max:10','min:10',
                 'status'=>'required'
-                
-
-
             ],
             []
         );
-
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
-
         EmployeeMaster::create([
             'employee_code' => $request->employee_code,
             'employee_name'=>$request->employee_name,
@@ -78,20 +59,9 @@ class EmployeeMasterController extends Controller
             'status'=>$request->status,
             'address'=>$request->address,
             'location'=>$request->location
-            
-
         ]);
         return response()->json(['success' => 'Employee Master Added Successfully!']);
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -102,16 +72,11 @@ class EmployeeMasterController extends Controller
             return view('admin.employee.edit', compact('item'));
         
     }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-
-
-
-        // dd($request->district);
         $validator = Validator::make(
             $request->all(),
             [
@@ -121,13 +86,10 @@ class EmployeeMasterController extends Controller
             ],
             []
         );
-
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
-
         $item = EmployeeMaster::find($request->id);
-
         // dd($item);
         $item->employee_code = $request->employee_code;
         $item->employee_name = $request->employee_name;
@@ -138,7 +100,6 @@ class EmployeeMasterController extends Controller
         $item->location=$request->location;
         $item->address=$request->address;
         $item->status = $request->status;
-
         $item->save();
         return response()->json(['success' => 'Employee Master Updated Successfully!']);
     }
@@ -147,7 +108,6 @@ class EmployeeMasterController extends Controller
      */
     public function delete(Request $request)
     {
-
         $validator = Validator::make(
             $request->all(),
             [
@@ -155,7 +115,6 @@ class EmployeeMasterController extends Controller
             ],
             []
         );
-
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         } else {
