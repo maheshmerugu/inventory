@@ -49,7 +49,7 @@
                             </div>
                             <div class="col-lg-2"><button id="searchBtn" type="submit" class="btn btn-success btn-fw"> <i class="mdi mdi-magnify"></i> Search</button></div>
                             <div class="col-sm-4  text-end mt-2">
-                                <a href="{{route('inventory.request.create')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
+                                <a href="{{route('items.create')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
                                 <label class="badge badge-info "><i class="mdi  mdi-check-circle-outline me-1"></i>Active</label>
                                 <label class="badge badge-warning"><i class="mdi mdi-close-circle-outline me-1"></i>In Active</label>
                                 <a href=""> <label class="badge badge-danger"><i class="mdi   mdi-delete me-1"></i> Delete</label></a>
@@ -101,8 +101,8 @@
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{$item->po_number ?? ''}}</td>
                                 <td>{{$item->purchased_date ?? ''}}</td>
-                                <td>{{$item->vendor_id ?? ''}}</td>
-                                <td>{{$item->item_group_id ?? ''}}</td>
+                                <td>{{$item->getVendorName->vendor_name ?? ''}}</td>
+                                <td>{{$item->getItemGroupName->group_name ??  ''}}</td>
                                 <td>{{$item->item_name ?? ''}}</td>
                                 <td>{{$item->serial_number  ?? ''}}</td>
                                 <td>{{$item->amc_warrenty  ?? ''}}</td>
@@ -208,7 +208,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('inventory.request.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
+                url: "{{ route('items.delete', ['id' => $item->id ?? '']) }}", // Adjust the route with item ID parameter
                 type: "POST",
                 data: {
                     _method: 'POST', // Specify the method as DELETE
@@ -224,7 +224,7 @@
                         });
                         // Redirect to a specific URL after a successful delete
                         setTimeout(function() {
-                            window.location.href = "{{ route('inventory.request.list') }}";
+                            window.location.href = "{{ route('items.index') }}";
                         }, 2000); // 2000 milliseconds = 2 seconds
                     } else {
                         iziToast.error({

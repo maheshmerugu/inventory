@@ -21,8 +21,8 @@
                             </div>
                             <div class="col-sm-4 mb-3 mt-1">
                                 <div class="form-group">
-                                    <label>Vendor Id<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-lg" name="vendor_id" id="vendor_id" placeholder="Vendor Id" oninput="validateVendorId()" aria-label="Title">
+                                    <label>Vendor Code<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg" name="vendor_code" id="vendor_code" placeholder="Vendor Id" oninput="validateVendorId()" aria-label="Title">
 
                                     <span id="vendorIdError" class="text-danger" style="display: none;">Vendor Id must contain only numbers and letters</span>
 

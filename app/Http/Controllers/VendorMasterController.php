@@ -74,7 +74,7 @@ class VendorMasterController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'vendor_id' => 'required|max:255',
+                'vendor_code' => 'required|max:255',
                 'vendor_name' => 'required|string|max:255',
                 'status' => 'required',
 
@@ -105,7 +105,7 @@ class VendorMasterController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'vendor_id' => 'required|unique:vendor_masters|max:255',
+                'vendor_code' => 'required|unique:vendor_masters|max:255',
                 'vendor_name' => 'required|string|max:255',
                 'vendor_email'=>'required',
                 'status' => 'required',
@@ -120,7 +120,7 @@ class VendorMasterController extends Controller
         }
 
         $group = new VendorMaster([
-            'vendor_id' => $request->input('vendor_id'),
+            'vendor_code' => $request->input('vendor_code'),
             'vendor_name' => $request->input('vendor_name'),
             'vendor_email' => $request->input('vendor_email'),
             'vendor_phone' => $request->input('vendor_phone'),

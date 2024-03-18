@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 
+
+
 use Barryvdh\DomPDF\Facade\Pdf;
 
 
@@ -30,7 +32,7 @@ class InventoryRequestController extends Controller
         $query = InventoryRequest::query();
         // If search query is provided or not empty, add search condition to the query
         if ($searchQuery !== null && $searchQuery !== '') {
-            $query->where('group_code', 'like', '%' . $searchQuery . '%');
+            $query->where('subject', 'like', '%' . $searchQuery . '%');
         }
 
         // If status query is provided or not empty, add status condition to the query
@@ -53,8 +55,8 @@ class InventoryRequestController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'subject' => 'required|alpha|max:255',
-                'message' => 'required|string|max:255',
+                'subject' => 'required|string|max:255',
+                'message' => 'required|string|max:4000',
 
             ],
             []
@@ -150,20 +152,121 @@ class InventoryRequestController extends Controller
 
        $data= InventoryRequest::find($request->id);
 
-    //    dd($data);
-        // HTML content for the PDF (You can fetch this content from your database or dynamically generate it)
-        // $data = 'Subject of the Letter';
-        // $message = 'This is the content of the letter. You can add your message here.';
-        
-        $html = '<html>
-                    <body>
-                        <h1>' . $data['subject']. '</h1>
-                        <p>' . $data['message']. '</p>
-                    </body>
-                 </html>';
-        
-        // Generate PDF using DOMPDF
-        $pdf = PDF::loadHTML($html);
+       $user_name = auth()->user()->name;
+
+
+       $letter = [
+        'to' => 'To',
+        'whom' => 'The Registrar (Administration)',
+        'location'=>'High Court of the State of Telangana',
+        'dear' => 'Dear Sir/Madam,',
+        'subject' => $data['subject'],
+        'message' => $data['message'],
+        'conclusion' => 'Thank you for considering my request.',
+    ];
+    
+  
+    
+    $currentDate = date('d-m-Y');
+
+   
+    
+    $html = '<!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+    }
+    
+    .container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    
+    .content {
+        margin-bottom: 20px;
+    }
+    
+    .subject {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+    
+    .conclusion {
+        font-style: italic;
+        text-align:center;
+    }
+    
+    /* Style the "Sub:" text */
+    .subject p {
+        margin: 0;
+        font-weight: bold;
+    }
+    
+    .to-date p {
+        margin: 0; /* Remove default margin */
+        display: inline-block; /* Display elements inline-block */
+    }
+    
+    .to-date .date {
+        float: right; /* Float the date to the right */
+    }
+    
+    .signature {
+        text-align: right; /* Align signature text to the right */
+    }
+    </style>
+    </head>
+    <body>
+    <div class="container">
+        <div class="content">
+            <div class="to-date">
+                <p>' . $letter['to'] . '</p>
+                <p class="date">' . $currentDate . '</p>
+            </div>
+            <p>' . $letter['whom'] . '</p>
+            <p>' . $letter['location'] . '</p>
+    
+            <p>' . $letter['dear'] . '</p>
+            <div class="subject">
+                <p>Sub:' . $letter['subject'] . '</p>
+            </div>
+            <p>' . $letter['message'] . '</p>
+            <p class="conclusion">' . $letter['conclusion'] . '</p>
+        </div>
+        <div class="signature">
+            <p>Sincerely,</p>
+            <p>' . $user_name . '</p>
+        </div>
+    </div>
+    </body>
+    </html>
+    
+    ';
+
+    
+    
+    
+    
+
+// Generate PDF using DOMPDF
+$pdf = PDF::loadHTML($html);
+
+
+// Generate PDF using DOMPDF
+$pdf = PDF::loadHTML($html);
+
+    
+    // Generate PDF using DOMPDF
+    $pdf = PDF::loadHTML($html);
+    
         
         // Download the PDF file
         return $pdf->download('document.pdf');

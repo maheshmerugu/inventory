@@ -6,6 +6,12 @@
     .modal-content {
         top: 150px;
     }
+
+
+    
+.red {
+    color: blue
+}
 </style>
 
 
@@ -41,8 +47,8 @@
                                 <div class="form-group">
                                     <select class="form-control form-select" name="status" id="status">
                                         <option value="">- Select Status -</option>
-                                        <option value="1">Active</option>
-                                        <option value="0">In Active</option>
+                                        <option value="1">Approved</option>
+                                        <option value="0">Rejected</option>
                                     </select>
                                 </div>
 
@@ -94,7 +100,11 @@
                                 </td>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{$item->subject ?? ''}}</td>
-                                <td>{{$item->message}}</td>
+                                <td>
+    <div id="companyDetails">
+        {{$item->message}}
+    </div>
+</td>
 
                                 <td>
                                     <label class="badge badge-successs">
@@ -407,6 +417,50 @@
     }
 </script>
 
+<script>
+    $(document).ready(function() {
+    function splitText(text) {
+        var textBreak = textLimit;
+        var first = text.substring(0, textBreak);
+        var second = text.substring(textBreak);
+        var aux = second.substring(0, second.indexOf(" "));
+        var spaceIndex = second.indexOf(" ");
+        second = " " + second.substring(spaceIndex + 1);
+        first = first.substring(0, textBreak) + aux;
+        var bothTextes = [first, second];
+        return bothTextes;
+    }
+
+
+
+    var textLimit = 20;
+    var text = $("#companyDetails").html();
+
+
+    if (text.length > textLimit) {
+        var textArray = splitText(text);
+        $("#companyDetails").text(textArray[0]);
+        $("#companyDetails").append("<span onclick=\"expandText()\" class='show-more'>...<span class=\"red\">show more</span></span>");
+        $("#companyDetails").append("<span style=\"display: none\" class='rest-of-description'>" + textArray[1] + "</span>");
+        $("#companyDetails").append("<span onclick=\"collapseText()\" style=\"display: none\" class='red show-less'> show less </span>");
+    } else {
+        $("#companyDetails").text(text);
+    }
+});
+
+    function expandText() {
+        $(".rest-of-description").show();
+        $(".show-less").show();
+        $(".show-more").hide();
+    }
+
+    function collapseText() {
+        $(".rest-of-description").hide();
+        $(".show-less").hide();
+        $(".show-more").show();
+    }
+    
+</script>
 
 
 

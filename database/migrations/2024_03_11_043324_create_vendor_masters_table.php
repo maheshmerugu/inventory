@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('vendor_masters', function (Blueprint $table) {
             $table->id();
-            $table->string('vendor_id');
+            $table->string('vendor_code');
             $table->string('vendor_name');
             $table->string('vendor_email');
             $table->string('vendor_phone');

@@ -150,8 +150,8 @@
                         <div class="collapse" id="ui-basics-purchase">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="{{route('items.create')}}">Item Entry</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{route('itemgroup.index')}}">Dispatch</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{route('vendor.master')}}">Return</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="">Dispatch</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="">Return</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('inventory.request.create')}}">Inventory Request</a></li>
                             </ul>
                         </div>

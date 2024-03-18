@@ -22,8 +22,8 @@
                                 </div>
                                 <div class="col-sm-4 mb-3 mt-1">
                                     <div class="form-group">
-                                        <label>Vendor Id<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control form-control-lg" name="vendor_id"  value="{{$item->vendor_id }}"  id="vendor_id" placeholder="Vendor Id" oninput="validateVendorId()" aria-label="Title">
+                                        <label>Vendor Code<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control form-control-lg" name="vendor_code"  value="{{$item->vendor_code }}"  id="vendor_id" placeholder="Vendor Id" oninput="validateVendorId()" aria-label="Title">
 
                                         <span id="vendorIdError" class="text-danger" style="display: none;">Vendor Id must contain only numbers and letters</span>
 
@@ -92,7 +92,7 @@
                                     <button type="submit" id="company_form_btn" class="btn btn-info "><i class="mdi mdi-arrow-right-bold-hexagon-outline "></i>
                                         UPDATE</button>
                                     <button type="submit" class="btn btn-gradient-success btn-fw ">
-                                        <a href="{{route('item-groups-masters-list')}}" class="mdi mdi-arrow-left-bold-circle"></a> BACK</button>
+                                        <a href="" class="mdi mdi-arrow-left-bold-circle"></a> BACK</button>
 
                                 </div>
                             </div>

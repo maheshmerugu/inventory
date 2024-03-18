@@ -57,7 +57,7 @@
                                     <select class="form-control form-select" name="vendor_id" id="vendor_id" style="width: 87%;margin-left: -65px;">
                                         <option value="">- Select -</option>
                                         @foreach($vendors as $vendor)
-                                        <option value="{{ $vendor->vendor_id }}">{{ $vendor->vendor_name }}</option>
+                                        <option value="{{ $vendor->id }}">{{ $vendor->vendor_name }}</option>
                                         @endforeach
                                     </select>
                                     <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must contain only letters</span>
@@ -69,7 +69,7 @@
                                     <select class="form-control form-select" name="item_group_id" id="item_group_id" style="margin-left: -113px;">
                                         <option value="">- Select -</option>
                                         @foreach($item_groups as $group)
-                                        <option value="{{ $group->group_code }}">{{ $group->group_name }}</option>
+                                        <option value="{{ $group->id }}">{{ $group->group_name }}</option>
                                         @endforeach
                                     </select>
                                     <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must contain only letters</span>

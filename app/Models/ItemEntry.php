@@ -12,4 +12,17 @@ class ItemEntry extends Model
     protected $guarded=[];
 
 
+
+    public function getVendorName()
+    {
+        return $this->belongsTo(VendorMaster::class, 'vendor_id');
+    }
+
+
+    public function getItemGroupName()
+    {
+        return $this->belongsTo(ItemGroup::class, 'item_group_id');
+    }
+
+
 }

@@ -141,15 +141,19 @@ class ItemEntryController extends Controller
             try {
 
                $item= ItemEntry::find($id);
+               $item->po_number=$request->po_number;
                $item->purchased_date=$request->purchased_date;
                $item->vendor_id=$request->vendor_id;
                $item->item_group_id=$request->item_group_id;
+
+               $item->item_name=$request->item_name;
+               $item->serial_number=$request->serial_number;
                $item->amc_warrenty=$request->amc_warrenty;
                $item->status=$request->status;
                $item->save();
 
 
-                return response()->json(['success' => 'Inventory Request Added Successfully!']);
+                return response()->json(['success' => 'Item Entry Updated Successfully!']);
             } catch (\Exception $e) {
                 return response()->json(['error' => 'Failed to add Inventory Request: ' . $e->getMessage()], 500);
             }
@@ -160,8 +164,34 @@ class ItemEntryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'id' => 'required',
+                
+
+            ],
+            []
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        } else {
+
+
+            try {
+
+               $item= ItemEntry::find($request->id);
+               $item->delete();
+
+
+                return response()->json(['success' => 'Item Entry Deleted Successfully!']);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to delete Item Entry Request: ' . $e->getMessage()], 500);
+            }
+        }
     }
 }

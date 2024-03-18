@@ -66,13 +66,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/item-master/search', [ItemMasterController::class, 'search'])->name('item-master.search');
     //item-entry routes
 
-Route::any('/item-entry-create', [ItemEntryController::class, 'create'])->name('items.create');
-Route::any('/item-entry-store', [ItemEntryController::class, 'store'])->name('items.store');
-Route::get('/item-entry-index', [ItemEntryController::class, 'index'])->name('items.index');
-
-Route::any('/item-entry/edit/{id}', [ItemEntryController::class ,'edit'])->name('items.edit');
-Route::post('/item-entry/update/{id}', [ItemEntryController::class ,'update'])->name('items.update');
-Route::post('/item-entry/delete/{id?}', [ItemEntryController::class ,'delete'])->name('items.delete');
+    Route::any('/item-entry-create', [ItemEntryController::class, 'create'])->name('items.create');
+    Route::any('/item-entry-store', [ItemEntryController::class, 'store'])->name('items.store');
+    Route::get('/item-entry-index', [ItemEntryController::class, 'index'])->name('items.index');
+    Route::any('/item-entry/edit/{id}', [ItemEntryController::class ,'edit'])->name('items.edit');
+    Route::post('/item-entry/update/{id}', [ItemEntryController::class ,'update'])->name('items.update');
+    Route::post('/item-entry/delete/{id?}', [ItemEntryController::class ,'destroy'])->name('items.delete');
 
 
     //vendor master-routes
