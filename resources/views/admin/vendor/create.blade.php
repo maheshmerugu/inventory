@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="page-header">
-    <h4 class=""> Master </h4> <a href="{{('vendor-master-list')}}" class=" "> <label class="badge badge-info"><i class="mdi mdi-apps"></i> Manage</label></a>
+    <h4 class=""> Master </h4> <a href="{{route('vendor.masters.list')}}" class=" "> <label class="badge badge-info"><i class="mdi mdi-apps"></i> Manage</label></a>
 </div>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">

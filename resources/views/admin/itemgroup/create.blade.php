@@ -2,7 +2,7 @@
 
 @section('content')
    <div class="page-header">
-        <h4 class=""> Master </h4> <a href="{{('itemgroup.index')}}" class=" "> <label class="badge badge-info"><i class="mdi mdi-apps"></i> Manage</label></a>
+        <h4 class=""> Master </h4> <a href="{{route('itemgroup.masters.list')}}" class=" "> <label class="badge badge-info"><i class="mdi mdi-apps"></i> Manage</label></a>
     </div>
     <div class="content-wrapper">
         <div class="col-12 grid-margin stretch-card">
@@ -135,7 +135,7 @@
         let data = new FormData(form);
 
         $.ajax({
-            url: "{{ route('itemgroup.store') }}",
+            url: "{{ route('itemgroup.master.store') }}",
             type: "POST",
             data: data,
             dataType: "JSON",
@@ -163,7 +163,7 @@
 
                     });
                     setTimeout(function() {
-                        window.location.href = "{{ route('itemgroup.index') }}";
+                        window.location.href = "{{ route('itemgroup.masters.list') }}";
                     }, 2000); // 2000 milliseconds = 2 seconds
                 }
 

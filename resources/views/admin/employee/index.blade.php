@@ -25,7 +25,7 @@
             <div class="card badge-light">
                 <div class="card-body">
 
-                    <form action="{{ route('item-groups-masters-list') }}" method="GET">
+                    <form action="{{ route('employee.master.list') }}" method="GET">
 
                         <div class=" slider">
                             <div class="row">

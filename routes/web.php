@@ -47,13 +47,16 @@ Route::middleware('auth')->group(function () {
 
     //item-group routes
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::any('/itemgroup/create', [ItemGroupController::class, 'create'])->name('itemgroup.create');
-    Route::any('/itemgroup', [ItemGroupController::class, 'index'])->name('itemgroup.index');
-    Route::post('/itemgroup', [ItemGroupController::class, 'store'])->name('itemgroup.store');
-    Route::any('/itemgroup/edit/{id}', [ItemGroupController::class, 'edit'])->name('itemgroup.edit');
-    Route::post('/item-groups-master-list/update/{id}', [ItemGroupController::class, 'update'])->name('itemgroup.update');
-    Route::post('/item-groups-master-list/delete/{id?}', [ItemGroupController::class, 'delete'])->name('itemgroup.destroy');
-    Route::post('/item-group/search', [ItemGroupController::class, 'search'])->name('item-groups-masters.search');
+   
+
+
+
+    Route::get('/item-group', [ItemGroupController::class, 'create'])->name('itemgroup.master');
+    Route::post('/item-group-store', [ItemGroupController::class, 'store'])->name('itemgroup.master.store');
+    Route::any('/item-group-list', [ItemGroupController::class, 'index'])->name('itemgroup.masters.list');
+    Route::any('/item-group-list/edit/{id}', [ItemGroupController::class, 'edit'])->name('itemgroup.master.list.edit');
+    Route::post('/item-group-list/update/{id}', [ItemGroupController::class, 'update'])->name('itemgroup.master.update');
+    Route::post('/item-group-list/delete/{id?}', [ItemGroupController::class, 'delete'])->name('itemgroup.master.delete');
 
     //item-master
 

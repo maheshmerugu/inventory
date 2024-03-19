@@ -47,7 +47,7 @@ class ItemGroupController extends Controller
 
     public function create()
     {
-        return view('admin.itemgroup.save');
+        return view('admin.itemgroup.create');
     }
 
     public function search(Request $request)
