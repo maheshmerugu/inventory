@@ -8,7 +8,6 @@
     }
 </style>
 
-<div class="main-panel">
     <div class="page-header">
         <h4 class="py-3">Item Master</h4>
     </div>
@@ -115,7 +114,6 @@
     <!-- content-wrapper ends -->
     <!-- partial:partials/_footer.html -->
     <!-- partial -->
-</div>
 <!-- HTML for delete confirmation modal -->
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

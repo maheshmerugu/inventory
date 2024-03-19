@@ -130,7 +130,7 @@
                                 <li class="nav-item"> <a class="nav-link" href="{{route('users.master')}}">Create Users</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('item.masters.list')}}">Item Master</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('itemgroup.index')}}">Item Group</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{route('vendor.master')}}">Vendor Master</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('vendor.masters.list')}}">Vendor Master</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('location.master')}}">Location Master</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('employee.master')}}">Employee Master</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="amc-master.php">Po/ Amc master</a></li>
