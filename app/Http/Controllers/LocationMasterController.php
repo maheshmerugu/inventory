@@ -52,12 +52,10 @@ class LocationMasterController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'location_code' => 'required|unique:location_masters|max:255',
-                'location_name' => 'required|string|max:255',
-                'district'=>'required',
-
-
-            ],
+            'location_code' => 'required|unique:location_masters|max:255|regex:/^[a-zA-Z0-9\s]+$/',
+            'location_name' => 'required|string|max:255',
+            'district'=>'required',
+        ],
             []
         );
 

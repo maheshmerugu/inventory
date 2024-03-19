@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class PageSection extends Model
 {
     use HasFactory;
-    protected $table='roles';
+    protected $table='page_sections';
     protected $fillable = [
-        'role_name',
-        'role_short_name',
+        'page_section_name',
         'status,'
     ];
 }

@@ -24,30 +24,25 @@ use App\Http\Controllers\DistrictMasterController;
 use App\Http\Controllers\CourtMasterController;
 use App\Http\Controllers\InventoryRequestController;
 use App\Http\Controllers\ItemEntryController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ItemMasterController;
 use App\Http\Controllers\CourtComplexController;
-
+use App\Http\Controllers\PageSectionController;
+use App\Http\Controllers\PageController;
 
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-
-
-
-
 //section routes
-
 Route::middleware('auth')->group(function () {
-
 
     //item-group routes
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::any('/itemgroup/create', [ItemGroupController::class, 'create'])->name('itemgroup.create');
+    Route::any('/itemgroup-create', [ItemGroupController::class, 'create'])->name('itemgroup.create');
     Route::any('/itemgroup', [ItemGroupController::class, 'index'])->name('itemgroup.index');
     Route::post('/itemgroup', [ItemGroupController::class, 'store'])->name('itemgroup.store');
     Route::any('/itemgroup/edit/{id}', [ItemGroupController::class, 'edit'])->name('itemgroup.edit');
@@ -56,7 +51,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/item-group/search', [ItemGroupController::class, 'search'])->name('item-groups-masters.search');
 
     //item-master
-
     Route::any('/item-masters', [ItemMasterController::class, 'save'])->name('item-masters');
     Route::any('/item-masters-list', [ItemMasterController::class, 'index'])->name('item.masters.list');
     Route::post('/item-master-store', [ItemMasterController::class, 'store'])->name('itemmaster.store');
@@ -64,11 +58,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/item-master-list/update/{id}', [ItemMasterController::class, 'update'])->name('item-masters.update');
     Route::post('/item-master-list/delete/{id?}', [ItemMasterController::class, 'delete'])->name('item-masters.delete');
     Route::post('/item-master/search', [ItemMasterController::class, 'search'])->name('item-master.search');
-    //item-entry routes
 
+    //item-entry routes
     Route::any('/item-entry-create', [ItemEntryController::class, 'create'])->name('items.create');
     Route::get('/item-entry-index', [ItemEntryController::class, 'index'])->name('items.index');
-
 
     //vendor master-routes
     Route::get('/vendor-master', [VendorMasterController::class, 'create'])->name('vendor.master');
@@ -78,9 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/vendor-master-list/update/{id}', [VendorMasterController::class, 'update'])->name('vendor.master.update');
     Route::post('/vendor-master-list/delete/{id?}', [VendorMasterController::class, 'delete'])->name('vendor.master.delete');
 
-
     //location master-routes
-
     Route::get('/location-master', [LocationMasterController::class, 'create'])->name('location.master');
     Route::post('/location-master-store', [LocationMasterController::class, 'store'])->name('location.master.store');
     Route::any('/location-master-list', [LocationMasterController::class, 'index'])->name('location.master.list');
@@ -96,8 +87,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/employee-master-list/update/{id}', [EmployeeMasterController::class, 'update'])->name('employee.master.update');
     Route::post('/employee-master-list/delete/{id?}', [EmployeeMasterController::class, 'delete'])->name('employee.master.delete');
 
-
-
     //user management routes
     Route::get('/users-master', [UserMasterController::class, 'create'])->name('users.master');
     Route::post('/users-master-store', [UserMasterController::class, 'store'])->name('users.master.store');
@@ -105,8 +94,6 @@ Route::middleware('auth')->group(function () {
     Route::any('/users-master-list/edit/{id}', [UserMasterController::class, 'edit'])->name('users.master.edit');
     Route::post('/users-master-list/update/{id}', [UserMasterController::class, 'update'])->name('users.master.update');
     Route::post('/users-master-list/delete/{id?}', [UserMasterController::class, 'delete'])->name('users.master.delete');
-
-
 
     ///district routes
     Route::get('/district-master', [DistrictMasterController::class, 'create'])->name('district.master');
@@ -133,11 +120,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/courts-complex-list/delete/{id?}', [CourtComplexController::class, 'delete'])->name('courts.complex.delete');
 
     //change password routes
-
     Route::get('/change-password', [UserController::class, 'changePassword'])->name('user.password.change');
     Route::post('/change-password-save', [UserController::class, 'changePasswordSave'])->name('user.password.save');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
     //inventory Request Routes 
     Route::get('/inventory-request-create', [InventoryRequestController::class, 'create'])->name('inventory.request.create');
@@ -147,12 +132,34 @@ Route::middleware('auth')->group(function () {
     Route::post('/inventory-request-list/update/{id}', [InventoryRequestController::class, 'update'])->name('inventory.request.update');
     Route::post('/inventory-request-list/delete/{id?}', [InventoryRequestController::class, 'delete'])->name('inventory.request.delete');
 
-
     Route::any('/inventory-request-download', [InventoryRequestController::class, 'download'])->name('inventory.request.pdf.download');
-    
+
+    //roles routes
+    Route::get('/roles-create', [RolesController::class, 'save'])->name('roles-create');
+    Route::post('/roles-store', [RolesController::class, 'store'])->name('roles.store');
+    Route::any('/roles-list', [RolesController::class, 'index'])->name('roles.list');
+    Route::any('/roles-list/edit/{id}', [RolesController::class, 'edit'])->name('roles-edit');
+    Route::post('/roles-list/update/{id}', [RolesController::class, 'update'])->name('roles-update');
+    Route::post('/roles-list/delete/{id?}', [RolesController::class, 'delete'])->name('roles.delete');
+
+    //pagesection  routes
+    Route::get('/pagesection-create', [PageSectionController::class, 'save'])->name('pagesection.create');
+    Route::post('/pagesection-store', [PageSectionController::class, 'store'])->name('pagesection.store');
+    Route::any('/pagesection-list', [PageSectionController::class, 'index'])->name('pagesection.list');
+    Route::any('/pagesection-list/edit/{id}', [PageSectionController::class, 'edit'])->name('pagesection.edit');
+    Route::post('/pagesection-list/update/{id}', [PageSectionController::class, 'update'])->name('pagesection.update');
+    Route::post('/pagesection-list/delete/{id?}', [PageSectionController::class, 'delete'])->name('pagesection.delete');
+
+    //page  routes
+    Route::get('/page-create', [PageController::class, 'create'])->name('page.create');
+    Route::post('/page-store', [PageController::class, 'store'])->name('page.store');
+    Route::any('/page-list', [PageController::class, 'index'])->name('page.list');
+    Route::any('/page-list/edit/{id}', [PageController::class, 'edit'])->name('page.edit');
+    Route::post('/page-list/update/{id}', [PageController::class, 'update'])->name('page.update');
+    Route::post('/page-list/delete/{id?}', [PageController::class, 'delete'])->name('page.delete');
 
     Route::resources([
-        'roles' => RoleController::class,
+        'roles' => RolesController::class,
         'users' => UserController::class,
         'products' => ProductController::class,
         // 'itemgroup'=>ItemGroupController

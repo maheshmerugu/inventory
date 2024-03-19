@@ -11,22 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('courts_complexes', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('district_id')->nullable();
-            $table->foreign('district_id')->references('id')->on('districts');
-            $table->string('complex_name', 30);
-          
+            $table->string('role_name');
+            $table->string('role_short_name');
+            $table->tinyInteger('status')
+            ->default(0)
+            ->comment('1 - Active, 0 - InActive');   
             $table->timestamps();
         });
     }
-    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('courts_complexes');
+        Schema::dropIfExists('roles');
     }
 };

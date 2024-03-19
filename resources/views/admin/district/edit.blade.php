@@ -8,7 +8,7 @@
     <div class="col-12 grid-margin stretch-card">
 
 
-    <form id="company_form" method="POST">
+        <form id="company_form" method="POST">
             @csrf
 
             <div class="card badge-light">
@@ -21,8 +21,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>District<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-lg"  name="name" id="name" value="{{$item->name}}" oninput="validateDistrict()" placeholder="District" aria-label="Title">
-                                <span id="DistrictNameError" class="text-danger" style="display: none;">District Name  must  be contain only Letters</span>
+                                <input type="text" class="form-control form-control-lg" name="name" id="name" value="{{$item->name}}" oninput="validateDistrict()" placeholder="District" aria-label="Title">
+                                <span id="DistrictNameError" class="text-danger" style="display: none;">District Name must be contain only Letters</span>
 
                             </div>
                         </div>
@@ -32,8 +32,8 @@
                                 <label>Status</label>
                                 <select class="form-control form-select" name="status" id="status">
                                     <option value="">- Select Status -</option>
-                                         <option value="0" {{$item->status == 0 ? 'selected' : ''}}>InActive</option>
-                                        <option value="1" {{$item->status == 1 ? 'selected' : ''}}>Active</option>
+                                    <option value="0" {{$item->status == 0 ? 'selected' : ''}}>InActive</option>
+                                    <option value="1" {{$item->status == 1 ? 'selected' : ''}}>Active</option>
                                 </select>
                             </div>
                         </div>
@@ -101,63 +101,63 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<<script>
+<script>
     $("#company_form_btn").click(function(e) {
-    e.preventDefault();
-    let form = $('#company_form')[0];
-    let data = new FormData(form);
-    let itemId = "{{ $item->id }}"; // Assuming you have the item ID available
+        e.preventDefault();
+        let form = $('#company_form')[0];
+        let data = new FormData(form);
+        let itemId = "{{ $item->id }}"; // Assuming you have the item ID available
 
-    $.ajax({
-    url: "{{ route('district.master.update', ['id' => $item->id]) }}", // Adjust the route with item ID parameter
-    type: "POST",
-    data: data,
-    dataType: "JSON",
-    processData: false,
-    contentType: false,
+        $.ajax({
+            url: "{{ route('district.master.update', ['id' => $item->id]) }}", // Adjust the route with item ID parameter
+            type: "POST",
+            data: data,
+            dataType: "JSON",
+            processData: false,
+            contentType: false,
 
-    success: function(response) {
+            success: function(response) {
 
-    if (response.errors) {
-    var errorMsg = '';
-    $.each(response.errors, function(field, errors) {
-    $.each(errors, function(index, error) {
-    errorMsg += error + '<br>';
-    });
-    });
-    iziToast.error({
-    message: errorMsg,
-    position: 'topRight'
-    });
+                if (response.errors) {
+                    var errorMsg = '';
+                    $.each(response.errors, function(field, errors) {
+                        $.each(errors, function(index, error) {
+                            errorMsg += error + '<br>';
+                        });
+                    });
+                    iziToast.error({
+                        message: errorMsg,
+                        position: 'topRight'
+                    });
 
-    } else {
-    iziToast.success({
-    message: response.success,
-    position: 'topRight'
-    });
-    // Redirect to a specific URL after a delay of 2 seconds (2000 milliseconds)
-    setTimeout(function() {
-    window.location.href = "{{ route('district.master.list') }}";
-    }, 2000); // 2000 milliseconds = 2 seconds
-    }
+                } else {
+                    iziToast.success({
+                        message: response.success,
+                        position: 'topRight'
+                    });
+                    // Redirect to a specific URL after a delay of 2 seconds (2000 milliseconds)
+                    setTimeout(function() {
+                        window.location.href = "{{ route('district.master.list') }}";
+                    }, 2000); // 2000 milliseconds = 2 seconds
+                }
 
-    },
-    error: function(xhr, status, error) {
+            },
+            error: function(xhr, status, error) {
 
-    iziToast.error({
-    message: 'An error occurred: ' + error,
-    position: 'topRight'
-    });
-    }
+                iziToast.error({
+                    message: 'An error occurred: ' + error,
+                    position: 'topRight'
+                });
+            }
 
-    });
+        });
 
     })
-    </script>
+</script>
 
 
 
 
 
 
-    @endsection
+@endsection

@@ -92,7 +92,7 @@
                                     <button type="submit" id="company_form_btn" class="btn btn-info "><i class="mdi mdi-arrow-right-bold-hexagon-outline "></i>
                                         UPDATE</button>
                                     <button type="submit" class="btn btn-gradient-success btn-fw ">
-                                        <a href="{{route('item-groups-masters-list')}}" class="mdi mdi-arrow-left-bold-circle"></a> BACK</button>
+                                        <a href="{{route('itemgroup.index')}}" class="mdi mdi-arrow-left-bold-circle"></a> BACK</button>
 
                                 </div>
                             </div>

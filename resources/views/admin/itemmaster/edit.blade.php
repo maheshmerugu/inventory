@@ -152,6 +152,7 @@
         let form = $('#company_form')[0];
         let data = new FormData(form);
         let itemId = "{{ $item->id }}";
+
         $.ajax({
             url: "{{ route('item-masters.update', ['id' => $item->id]) }}", 
             type: "POST",
