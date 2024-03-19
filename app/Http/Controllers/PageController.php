@@ -18,7 +18,7 @@ class PageController extends Controller
         $query = Page::query();
         // If search query is provided or not empty, add search condition to the query
         if ($searchQuery !== null && $searchQuery !== '') {
-            $query->where('page_name', 'like', '%' . $searchQuery . '%');
+            $query->where('page_section_name', 'like', '%' . $searchQuery . '%');
         }
         // If status query is provided or not empty, add status condition to the query
         if ($statusQuery !== null && $statusQuery !== '') {
@@ -31,7 +31,7 @@ class PageController extends Controller
     public function create()
     {
         $all_sections = PageSection::all();
-       // dd($all_sections);
+        // dd($all_sections);
         return view('admin.pages.create', compact('all_sections'));
     }
     public function edit($id)
@@ -63,29 +63,28 @@ class PageController extends Controller
     }
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'pagesection.*.page_name' => 'required|unique:page_sections,page_name,NULL,id,page_section_id,' . $request->page_section_id,
-            'page_section_id' => 'required',
-        ]);
-
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'pagesection.*.page_name' => 'required|unique:page_sections,page_name,NULL,id,page_section_id,' . $request->page_section_id,
+                'page_section_id' => 'required',
+            ],
+            [
+                'page_section_id.required' => 'PageSection is required.',
+                'pagesection.*.page_name.required' => 'Page name is required.',
+                'pagesection.*.page_name.unique' => 'Page name must be unique within the page section.',
+            ]
+        );
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
-
-        foreach ($request->court as $key => $value) {
-            // Check if the court name already exists for the given district
-            $existingSection = PageSection::where('page_section_id', $request->page_section_id)
-                ->where('page_name', $value['page_name'])
-                ->first();
-            if ($existingSection) {
-                return response()->json(['errors' => ['page_name' => 'Page Name already exists for this PageSection.']], 422);
-            }
+        foreach ($request->pagesection as $key => $value) {
             // Add the district_id to the $value array
             $value['page_section_id'] = $request->page_section_id;
             // Create a new CourtsMaster record with the updated $value array
             PageSection::create($value);
         }
-        return response()->json(['success' => 'Court Added Successfully!']);
+        return response()->json(['success' => 'Page Added Successfully!']);
     }
 
     public function delete(Request $request)

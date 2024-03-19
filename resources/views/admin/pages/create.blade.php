@@ -18,7 +18,7 @@
                                 <select class="form-control form-select" name="pages_section_id" id="pages_section_id">
                                     <option value="">- Select Page Section -</option>
                                     @foreach($all_sections as $status)
-                                    <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                    <option value="{{ $status->id }}">{{ $status->page_section_name ?? ''}}</option>
                                     @endforeach
                                 </select>
                                 <span id="PageSectionNameError" class="text-danger" style="display: none;">Page Section must be contain only Letters</span>
