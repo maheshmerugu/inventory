@@ -24,31 +24,6 @@
                                 <span id="PageSectionNameError" class="text-danger" style="display: none;">Page Section must be contain only Letters</span>
                             </div>
                         </div>
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="role_name">Page Name <span class="text-danger">*</span></label>
-                                <input type="text" name="page_name" class="form-control form-control-lg" id="page_name" placeholder="Page Name" aria-label="Title" required oninput="validatePageName()">
-                            </div>
-                            <div id="pageNameError" class="text-danger" style="display:none;">Page Name is required</div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="role_name">Page Url</label>
-                                <input type="text" name="page_url" class="form-control form-control-lg" id="page_url" placeholder="Page Url" aria-label="Title">
-                            </div>
-                            <div id="pageUrlError" class="text-danger" style="display:none;">Page Url is required</div>
-                        </div>
-                        <div class="col-md-4 mt-1">
-                            <div class="form-group">
-                                <label for="status">Status</label>
-                                <select class="form-control form-select" name="status" id="status">
-                                    <option value="">- Select -</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">In Active</option>
-                                </select>
-                            </div>
-                        </div> -->
-
                         <div class="col-md-9">
                             <table class="table table" id="dynamicTable">
                                 <tr>

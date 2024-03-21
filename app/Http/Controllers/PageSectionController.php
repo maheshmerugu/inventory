@@ -39,7 +39,7 @@ class PageSectionController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'page_section_name' => 'required|unique:page_sections|max:255',
+                //'page_section_name' => 'required|page_sections',
             ],
             []
         );

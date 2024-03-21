@@ -9,13 +9,13 @@
 </style>
 
 <div class="page-header">
-    <h4 class="py-3">Page List</h4>
+    <h4 class="py-3">Role Page List</h4>
 </div>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">
         <div class="card badge-light">
             <div class="card-body">
-                <form action="{{ route('page.list')}}" method="GET">
+                <form action="{{ route('rolepage.list')}}" method="GET">
                     <div class=" slider">
                         <div class="row">
                             <div class="col-sm-3 mb-1 mt-1">
@@ -39,7 +39,7 @@
                             </div>
                             <div class="col-lg-2"><button id="searchBtn" type="submit" class="btn btn-success btn-fw"> <i class="mdi mdi-magnify"></i> Search</button></div>
                             <div class="col-sm-4  text-end mt-2">
-                                <a href="{{route('page.create')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
+                                <a href="{{route('rolepage.create')}}"><label class="badge badge-success"><i class="mdi  mdi-plus-circle-outline me-1"></i> Add</label></a>
                             </div>
                         </div>
                     </div>
@@ -58,9 +58,8 @@
                             <tr class="badge-secondary">
                                 <th><input type="checkbox" id="checkall"></th>
                                 <th>S.No</th>
-                                <th>Page Section</th>
-                                <th>Page Name</th>
-                                <th>Page Url</th>
+                                <th>Roles</th>
+                                <th>Pages</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -72,9 +71,8 @@
                                     <input type="checkbox" class="CheckBoxClass" name="multiple[]" value="1">
                                 </td>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{$item->pagesection->page_section_name}}</td>
-                                <td>{{$item->page_name}}</td>
-                                <td>{{$item->page_url}}</td>
+                                <td>{{ $item->role->role_name }}</td>
+                                <td>{{ $item->page->page_name }}</td>
                                 <td>
                                     <label class="badge badge-successs">
                                         <?php echo $item->status == 1 ? 'Active' : ($item->status == 0 ? 'InActive' : ''); ?>
@@ -82,7 +80,7 @@
                                 </td>
                                 <td>
                                     <label class="badge badge-info me-3">
-                                        <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('page.edit', $item->id) }}">update</a></i>
+                                        <i class="mdi mdi-reload btn-icon-prepend"><a href="{{ route('rolepage.edit', $item->id) }}">update</a></i>
                                     </label>
                                     <label class="badge badge-danger">
                                         <!-- <i id="deleteButton" class="mdi mdi-delete me-1"></i> Delete -->
@@ -138,7 +136,7 @@
             var itemId = $(this).data("id");
             e.preventDefault();
             $.ajax({
-                url: "{{ route('page.delete', ['id' => $item->id ?? '']) }}",
+                url: "{{ route('rolepage.delete', ['id' => $item->id ?? '']) }}",
                 type: "POST",
                 data: {
                     _method: 'POST',
@@ -154,7 +152,7 @@
                         });
                         // Redirect to a specific URL after a successful delete
                         setTimeout(function() {
-                            window.location.href = "{{ route('page.list') }}";
+                            window.location.href = "{{ route('rolepage.list') }}";
                         }, 2000); // 2000 milliseconds = 2 seconds
                     } else {
                         iziToast.error({

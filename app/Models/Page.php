@@ -8,19 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Model
 {
     use HasFactory;
+    
     protected $table = 'pages';
+    
     protected $fillable = [
-        'page_section_id' ,
-            'page_name',
+        'page_section_id',
+        'page_name',
         'page_url',
         'status',
     ];
 
-    // PageSection model
     public function pagesection()
     {
         return $this->belongsTo(PageSection::class, 'page_section_id');
     }
-
-   
 }

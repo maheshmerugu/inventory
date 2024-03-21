@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('item_masters', function (Blueprint $table) {
             $table->id();
-            $table->string('group_name', 30);
-            $table->string('item_code', 20);
-            $table->string('item_name', 20);
-            $table->string('pn', 10);
-            $table->string('critical', 10);
-            $table->string('status')->default('Active'); 
+            $table->string('group_name', 255);
+            $table->string('item_code', 255);
+            $table->string('item_name', 255);
+            $table->integer('pn')->nullable();
+            $table->integer('critical')->nullable();
+            $table->tinyInteger('status')->default(1)->comment('1 - Active, 0 - InActive');
             $table->timestamps();
         });
     }

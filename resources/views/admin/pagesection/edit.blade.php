@@ -17,8 +17,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="role_name">Page Section Name</label>
-                                    <input type="text" name="page_section_name" class="form-control form-control-lg" id="page_section_name" placeholder="Page Section Name" value="{{$item->page_section_name}}" aria-label="Page Name" required oninput="validatePageSection()">
+                                    <label for="page_section_name">Page Section Name</label>
+                                    <input type="text" name="page_section_name" class="form-control form-control-lg" id="page_section_name" placeholder="Page Section Name" value="{{$item->page_section_name}}" aria-label="Page Name">
                                 </div>
                                 <div id="pageNameError" class="text-danger" style="display:none;">Page Section Name is required</div>
                             </div>
@@ -45,16 +45,16 @@
     </div>
 </div>
 <script>
-    function validatePageSection() {
-        var pageName = document.getElementById("page_section_name").value;
-        var alphanumericRegex = /^[a-zA-Z ]+$/; 
-        var errorElement = document.getElementById("pageNameError");
-        if (!alphanumericRegex.test(pageName)) {
-            errorElement.style.display = "block";
-        } else {
-            errorElement.style.display = "none";
-        }
-    }
+    // function validatePageSection() {
+    //     var pageName = document.getElementById("page_section_name").value;
+    //     var alphanumericRegex = /^[a-zA-Z ]+$/; 
+    //     var errorElement = document.getElementById("pageNameError");
+    //     if (!alphanumericRegex.test(pageName)) {
+    //         errorElement.style.display = "block";
+    //     } else {
+    //         errorElement.style.display = "none";
+    //     }
+    // }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -64,7 +64,6 @@
         let form = $('#company_form')[0];
         let data = new FormData(form);
         let itemId = "{{ $item->id }}";
-
         $.ajax({
             url: "{{ route('pagesection.update', ['id' => $item->id]) }}",
             type: "POST",
@@ -72,10 +71,7 @@
             dataType: "JSON",
             processData: false,
             contentType: false,
-
-
             success: function(response) {
-
                 if (response.errors) {
                     var errorMsg = '';
                     $.each(response.errors, function(field, errors) {
@@ -98,7 +94,6 @@
                         window.location.href = "{{ route('pagesection.list') }}";
                     }, 2000); // 2000 milliseconds = 2 seconds
                 }
-
             },
             error: function(xhr, status, error) {
 
@@ -107,7 +102,6 @@
                     position: 'topRight'
                 });
             }
-
         });
 
     })

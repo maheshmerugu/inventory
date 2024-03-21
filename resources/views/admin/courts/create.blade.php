@@ -55,7 +55,7 @@
                             <button type="button" id="company_form_btn" class="btn btn-info "><i class="mdi mdi-arrow-right-bold-hexagon-outline "></i>
                                 SUBMIT</button>
                             <button type="button" class="btn btn-gradient-success btn-fw ">
-                                <i class="mdi mdi-arrow-left-bold-circle"></i> BACK</button>
+                                <a href="{{route('courts.master.list')}}"><i class="mdi mdi-arrow-left-bold-circle"></i> BACK</a></button>
 
                         </div>
 

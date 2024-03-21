@@ -166,7 +166,7 @@
                                 <li class="nav-item"> <a class="nav-link" href="{{route('roles.list')}}">Roles</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('pagesection.list')}}">Page Section</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('page.list')}}">Pages</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{route('inventory.request.create')}}">Role Pages</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('rolepage.list')}}">Role Pages</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('inventory.request.create')}}">Create Users</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('inventory.request.create')}}">Manage Users</a></li>
                             </ul>

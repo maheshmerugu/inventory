@@ -31,7 +31,7 @@ use App\Http\Controllers\ItemMasterController;
 use App\Http\Controllers\CourtComplexController;
 use App\Http\Controllers\PageSectionController;
 use App\Http\Controllers\PageController;
-
+use App\Http\Controllers\RolePageController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -157,6 +157,14 @@ Route::middleware('auth')->group(function () {
     Route::any('/page-list/edit/{id}', [PageController::class, 'edit'])->name('page.edit');
     Route::post('/page-list/update/{id}', [PageController::class, 'update'])->name('page.update');
     Route::post('/page-list/delete/{id?}', [PageController::class, 'delete'])->name('page.delete');
+
+    //role pages  routes
+    Route::get('/rolepage-create', [RolePageController::class, 'create'])->name('rolepage.create');
+    Route::post('/rolepage-store', [RolePageController::class, 'store'])->name('rolepage.store');
+    Route::any('/rolepage-list', [RolePageController::class, 'index'])->name('rolepage.list');
+    Route::any('/rolepage-list/edit/{id}', [RolePageController::class, 'edit'])->name('rolepage.edit');
+    Route::post('/rolepage-list/update/{id}', [RolePageController::class, 'update'])->name('rolepage.update');
+    Route::post('/rolepage-list/delete/{id?}', [RolePageController::class, 'delete'])->name('rolepage.delete');
 
     Route::resources([
         'roles' => RolesController::class,

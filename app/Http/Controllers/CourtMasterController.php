@@ -31,6 +31,7 @@ class CourtMasterController extends Controller
     public function create()
     {
         $all_districts = District::all();
+        //dd($all_districts);
         return view('admin.courts.create', compact('all_districts'));
     }
     /**

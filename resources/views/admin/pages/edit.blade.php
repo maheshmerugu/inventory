@@ -17,6 +17,18 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label>Page Section<span class="text-danger">*</span></label>
+                                    <select class="form-control form-select" name="page_section_id" id="page_section_id">
+                                        <option value="">- Select Status -</option>
+                                        @foreach($all_sections as $status)
+                                        <option value="{{ $status->id }}" @if($status->id == $item->page_section_id) selected @endif>{{ $status->page_section_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span id="PageSectionNameError" class="text-danger" style="display: none;">Page Section Name must be contain only Letters</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label for="role_name">Page Name</label>
                                     <input type="text" name="page_name" class="form-control form-control-lg" id="page_name" placeholder="Page Name" value="{{$item->page_name}}" aria-label="Page Name" required oninput="validatePageName()">
                                 </div>
@@ -25,7 +37,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="role_name">Page Url</label>
-                                    <input type="text" name="page_url" class="form-control form-control-lg" id="page_url" placeholder="Page Url" value="{{$item->page_name}}" aria-label="Title">
+                                    <input type="text" name="page_url" class="form-control form-control-lg" id="page_url" placeholder="Page Url" value="{{$item->page_url}}" aria-label="Title">
                                 </div>
                                 <div id="pageUrlError" class="text-danger" style="display:none;">Page Url is required</div>
                             </div>
@@ -42,7 +54,7 @@
                             <div class="co-lg-12 text-center mt-4">
                                 <button type="submit" id="company_form_btn" class="btn btn-info "><i class="mdi mdi-arrow-right-bold-hexagon-outline "></i> SUBMIT</button>
                                 <button type="button" class="btn btn-gradient-success btn-fw ">
-                                    <a href="{{ route('pagesection.list') }}"><i class="mdi mdi-arrow-left-bold-circle"></i> BACK</a></button>
+                                    <a href="{{ route('page.list') }}"><i class="mdi mdi-arrow-left-bold-circle"></i> BACK</a></button>
                             </div>
                         </div>
                     </div>
@@ -54,7 +66,7 @@
 <script>
     function validatePageName() {
         var pageName = document.getElementById("page_name").value;
-        var alphanumericRegex = /^[a-zA-Z ]+$/; 
+        var alphanumericRegex = /^[a-zA-Z ]+$/;
         var errorElement = document.getElementById("pageNameError");
         if (!alphanumericRegex.test(pageName)) {
             errorElement.style.display = "block";

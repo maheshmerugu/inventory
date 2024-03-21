@@ -82,8 +82,8 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{$item->item_code}}</td>
                                     <td>{{$item->item_name}}</td>
-                                    <td>{{$item->pn}}</td>
-                                    <td>{{$item->critical}}</td>
+                                    <td>{{ $item->pn == 1 ? 'Yes' : ($item->pn == 2 ? 'No' : 'Interview QA') }}</td>
+                                    <td>{{ $item->critical == 1 ? 'Yes' : ($item->critical == 2 ? 'No' : 'Interview QA') }}</td>
                                     <td>
                                         <label class="badge badge-successs">
                                             <?php echo $item->status == 1 ? 'Active' : 'Not Active'; ?>
@@ -154,12 +154,12 @@
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('item-masters.delete', ['id' => $item->id ?? '']) }}", 
+                url: "{{ route('item-masters.delete', ['id' => $item->id ?? '']) }}",
                 type: "POST",
                 data: {
                     _method: 'POST',
-                    _token: '{{ csrf_token() }}', 
-                    id: itemId 
+                    _token: '{{ csrf_token() }}',
+                    id: itemId
                 },
                 dataType: "JSON",
                 success: function(response) {
